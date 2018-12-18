@@ -1,0 +1,20 @@
+<app-container [config]="containerConfig"  *ngIf="containerConfig">
+  <div class="addition">
+    <button mat-raised-button (click)="newData()">新增套餐包</button>
+  </div>
+  <div class="content">
+    <div *ngIf="!packageServiceTable.lists&&packageServiceTable.loading">Loading...</div>
+    <div *ngIf="!packageServiceTable.lists&&!packageServiceTable.loading&&!!packageServiceTable.errorMessage" class="center">
+      {{packageServiceTable.errorMessage}}
+    </div>
+    <div *ngIf="packageServiceTable.lists">
+      <div class="content__table">
+        <app-lib-table
+          [table]="packageServiceTable"
+          (handleEmmit)="gotoHandle($event)"
+          (pageEmitter)="getPackageService($event)"
+        ></app-lib-table>
+      </div>
+    </div>
+  </div>
+</app-container>

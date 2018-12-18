@@ -1,0 +1,14 @@
+<mat-toolbar class="login-toolbar" color="primary">
+  <h1>心血管家后台管理系统</h1>
+</mat-toolbar>
+<div class="login-container">
+  <form *ngIf="loginForm" class="login__form" [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
+    <app-input-text class="login__form__input" [form]="loginForm"
+                    *ngFor="let data of loginLib" [data]="data"
+    ></app-input-text>
+    <button mat-raised-button type="submit" class="login__form__button" color="primary"
+            [disabled]="!loginForm.valid">登陆
+    </button>
+    <button mat-raised-button type="reset" class="login__form__button">重置</button>
+  </form>
+</div>

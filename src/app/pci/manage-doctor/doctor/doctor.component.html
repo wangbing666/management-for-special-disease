@@ -1,0 +1,122 @@
+<app-container [config]="containerConfig" *ngIf="containerConfig">
+  <div class="addition">
+    <button mat-raised-button (click)="export()">导出</button>
+    <button mat-raised-button (click)="toSendMessage()">短信提醒医生</button>
+    <button mat-raised-button (click)="newData()">新增医生</button>
+  </div>
+  <div class="content">
+    <mat-tab-group dynamicHeight="true" [selectedIndex]="tab | async" (selectedIndexChange)="change($event)">
+      <mat-tab label="全部">
+        <form style="padding: 16px">
+          <mat-form-field floatPlaceholder="always">
+            <input matInput type="text" placeholder="手机号／姓名搜索" name="queryKey" [(ngModel)]="allTable.queryKey.key">
+          </mat-form-field>
+          <app-search [type]="'1'" [label]="'注册时间'" [(value)]="allTable.queryKey.date"></app-search>
+          <button mat-icon-button color="primary" type="button" (click)="getAllDoctors(0)">
+            <mat-icon>search</mat-icon>
+          </button>
+          <button mat-icon-button color="primary" type="button" (click)="reset0()">
+            <mat-icon>autorenew</mat-icon>
+          </button>
+        </form>
+        <div *ngIf="!allTable.lists&&allTable.loading">Loading...</div>
+        <div *ngIf="!allTable.lists&&!allTable.loading&&!!allTable.errorMessage" class="center">
+          {{allTable.errorMessage}}
+        </div>
+        <div *ngIf="allTable.lists">
+          <div class="content__table">
+            <app-lib-table
+              [table]="allTable"
+              (handleEmmit)="gotoHandle($event)"
+              (pageEmitter)="getAllDoctors($event)"
+            ></app-lib-table>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="审核通过">
+        <form style="padding: 16px">
+          <mat-form-field floatPlaceholder="always">
+            <input matInput type="text" placeholder="手机号／姓名搜索" name="queryKey" [(ngModel)]="userTable.queryKey.key">
+          </mat-form-field>
+          <app-search [type]="'1'" [label]="'注册时间'" [(value)]="userTable.queryKey.date"></app-search>
+          <button mat-icon-button color="primary" type="button" (click)="getAuditedDoctors(0)">
+            <mat-icon>search</mat-icon>
+          </button>
+          <button mat-icon-button color="primary" type="button" (click)="reset1()">
+            <mat-icon>autorenew</mat-icon>
+          </button>
+        </form>
+        <div *ngIf="!userTable.lists&&userTable.loading">Loading...</div>
+        <div *ngIf="!userTable.lists&&!userTable.loading&&!!userTable.errorMessage" class="center">
+          {{userTable.errorMessage}}
+        </div>
+        <div *ngIf="userTable.lists">
+          <div class="content__table">
+            <app-lib-table
+              [table]="userTable"
+              (handleEmmit)="gotoHandle($event)"
+              (pageEmitter)="getAuditedDoctors($event)"
+            ></app-lib-table>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="待审核">
+        <form style="padding: 16px">
+          <mat-form-field floatPlaceholder="always">
+            <input matInput type="text" placeholder="手机号／姓名搜索" name="queryKey" [(ngModel)]="auditingTable.queryKey.key">
+          </mat-form-field>
+          <app-search [type]="'1'" [label]="'注册时间'" [(value)]="auditingTable.queryKey.date"></app-search>
+          <button mat-icon-button color="primary" type="button" (click)="getAuditingDoctors(0)">
+            <mat-icon>search</mat-icon>
+          </button>
+          <button mat-icon-button color="primary" type="button" (click)="reset2()">
+            <mat-icon>autorenew</mat-icon>
+          </button>
+        </form>
+        <div *ngIf="!auditingTable.lists&&auditingTable.loading">Loading...</div>
+        <div *ngIf="!auditingTable.lists&&!auditingTable.loading&&!!auditingTable.errorMessage" class="center">
+          {{auditingTable.errorMessage}}
+        </div>
+        <div *ngIf="auditingTable.lists">
+          <div class="content__table">
+            <app-lib-table
+              [table]="auditingTable"
+              (handleEmmit)="gotoHandle($event)"
+              (pageEmitter)="getAuditingDoctors($event)"
+            ></app-lib-table>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="审核失败">
+        <form style="padding: 16px">
+          <mat-form-field floatPlaceholder="always">
+            <input matInput type="text" placeholder="手机号／姓名搜索" name="queryKey" [(ngModel)]="failureTable.queryKey.key">
+          </mat-form-field>
+          <app-search [type]="'1'" [label]="'注册时间'" [(value)]="failureTable.queryKey.date"></app-search>
+          <button mat-icon-button color="primary" type="button" (click)="getFailureDoctors(0)">
+            <mat-icon>search</mat-icon>
+          </button>
+          <button mat-icon-button color="primary" type="button" (click)="reset3()">
+            <mat-icon>autorenew</mat-icon>
+          </button>
+        </form>
+        <div *ngIf="!failureTable.lists&&failureTable.loading">Loading...</div>
+        <div *ngIf="!failureTable.lists&&!failureTable.loading&&!!failureTable.errorMessage" class="center">
+          {{failureTable.errorMessage}}
+        </div>
+        <div *ngIf="failureTable.lists">
+          <div class="content__table">
+            <app-lib-table
+              [table]="failureTable"
+              (handleEmmit)="gotoHandle($event)"
+              (pageEmitter)="getFailureDoctors($event)"
+            ></app-lib-table>
+          </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+    <div class="count" *ngIf="count">
+      <mat-chip color="accent" selected="true">{{count}}</mat-chip>
+    </div>
+  </div>
+</app-container>

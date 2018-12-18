@@ -1,0 +1,61 @@
+<app-container [config]="containerConfig" *ngIf="containerConfig">
+  <div class="addition">
+    <button mat-raised-button (click)="toSendMessage()">短信提醒患者</button>
+    <button mat-raised-button (click)="export()">导出</button>
+    <button mat-raised-button (click)="newData()">新增患者</button>
+    <button mat-raised-button  class="register-btn">
+      <input type="file" class="batchRegister" (change)="batchRegisterUser($event)">
+      批量注册患者
+    </button>
+  </div>
+  <div class="content">
+    <form style="padding: 16px">
+      <mat-form-field floatPlaceholder="always">
+        <input matInput type="text" placeholder="手机号／姓名搜索/微信昵称搜索" name="queryKey" [(ngModel)]="userTable.queryKey">
+      </mat-form-field>
+      <mat-form-field floatPlaceholder="always">
+        <mat-select placeholder="是否绑定微信服务号" name="queryBind" [(ngModel)]="queryBind">
+          <mat-option [value]="''">全部</mat-option>
+          <mat-option [value]="true">是</mat-option>
+          <mat-option [value]="false">否</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field floatPlaceholder="always" style="width: 270px;">
+        <mat-select placeholder="来源渠道（为医院二维码时手术医院必须选择）" name="source" [(ngModel)]="source">
+          <mat-option [value]="opt.type" *ngFor="let opt of sourceList"
+                      (click)="getUsers(0)">
+            {{opt.description}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field floatPlaceholder="always">
+        <mat-select placeholder="手术医院" name="hospital" [(ngModel)]="hospital">
+          <mat-option [value]="opt.id" *ngFor="let opt of hospitalList"
+                      (click)="getUsers(0)">
+            {{opt.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <app-search [type]="'1'" [label]="'注册时间'" [(value)]="RegisterDate"></app-search>
+      <button mat-icon-button color="primary" type="button" (click)="getUsers(0)">
+        <mat-icon>search</mat-icon>
+      </button>
+      <button mat-icon-button color="primary" type="button" (click)="reset()">
+        <mat-icon>autorenew</mat-icon>
+      </button>
+    </form>
+    <div *ngIf="!userTable.lists&&userTable.loading">Loading...</div>
+    <div *ngIf="!userTable.lists&&!userTable.loading&&!!userTable.errorMessage" class="center">
+      {{userTable.errorMessage}}
+    </div>
+    <div *ngIf="userTable.lists">
+      <div class="content__table">
+        <app-lib-table
+          [table]="userTable"
+          (handleEmmit)="gotoHandle($event)"
+          (pageEmitter)="getUsers($event)"
+        ></app-lib-table>
+      </div>
+    </div>
+  </div>
+</app-container>

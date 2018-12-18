@@ -1,0 +1,16 @@
+<app-container [config]="containerConfig" *ngIf="containerConfig">
+  <div class="content">
+    <div *ngIf="!pushTimeTable.lists&&pushTimeTable.loading">Loading...</div>
+    <div *ngIf="!pushTimeTable.lists&&!pushTimeTable.loading&&!!pushTimeTable.errorMessage" class="center">
+      {{pushTimeTable.errorMessage}}
+    </div>
+    <div *ngIf="pushTimeTable.lists">
+      <div class="content__table">
+        <app-lib-table
+          [table]="pushTimeTable"
+          (handleEmmit)="gotoHandle($event)"
+        ></app-lib-table>
+      </div>
+    </div>
+  </div>
+</app-container>

@@ -1,0 +1,8 @@
+.content {
+  position: relative;
+}
+@media (max-width: 600px) {
+  .count {
+    left: 138px;
+  }
+}

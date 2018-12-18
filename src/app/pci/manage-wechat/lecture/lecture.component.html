@@ -1,0 +1,54 @@
+<app-container [config]="containerConfig" *ngIf="containerConfig">
+  <div class="addition">
+    <button mat-raised-button (click)="newData()">新增讲座</button>
+  </div>
+  <div class="content">
+    <div *ngIf="!lectureTable.lists&&lectureTable.loading">Loading...</div>
+    <div *ngIf="!lectureTable.lists&&!lectureTable.loading&&!!lectureTable.errorMessage" class="center">
+      {{lectureTable.errorMessage}}
+    </div>
+    <div *ngIf="lectureTable.lists">
+      <div class="content__table">
+        <!--<app-lib-table-->
+        <!--[table]="lectureTable"-->
+        <!--(handleEmmit)="gotoHandle($event)"-->
+        <!--&gt;</app-lib-table>-->
+        <table class="table">
+          <thead>
+          <tr>
+            <th *ngFor="let title of lectureTable.titles">{{title.name}}</th>
+          </tr>
+          </thead>
+          <tbody *ngIf="lectureTable.lists">
+          <tr *ngFor="let list of lectureTable.lists; let i = index">
+            <td *ngFor="let title of lectureTable.titles" [ngSwitch]="title.controlType" data-title="{{title.name}}">
+              <div *ngSwitchCase="controlType.index" [style.minWidth.px]="title.minwidth"
+                   [style.maxWidth.px]="title.maxwidth"
+                   [ngStyle]="{'text-align': title.align}"
+                   class="table__content">
+                <span>{{i + 1 + lectureTable.currentPage * lectureTable.size}}</span>
+              </div>
+              <div *ngSwitchCase="controlType.text" [style.minWidth.px]="title.minwidth"
+                   [style.maxWidth.px]="title.maxwidth"
+                   class="table__content">
+                <span>{{list[title.key] == 0 ? list[title.key] : list[title.key] || ''}}</span>
+              </div>
+              <div *ngSwitchCase="controlType.date" [style.minWidth.px]="title.minwidth"
+                   [style.maxWidth.px]="title.maxwidth"
+                   class="table__content">
+                <span>{{list[title.key] | date:"yyyy/MM/dd HH:mm"}}</span>
+              </div>
+              <div *ngSwitchCase="controlType.image" class="table__image">
+                <img src="{{list[title.key]}}">
+              </div>
+              <div *ngSwitchCase="controlType.button" [style.minWidth.px]="title.minwidth" class="table__content">
+                <span (click)="gotoHandle(title.key,list)" class="table__option">{{title.option || list[title.key] || title.name }}</span>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</app-container>

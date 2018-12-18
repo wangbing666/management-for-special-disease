@@ -1,0 +1,48 @@
+<app-container [config]="containerConfig" *ngIf="containerConfig">
+  <div class="content">
+    <mat-tab-group dynamicHeight="true">
+      <mat-tab label="患者端">
+        <form style="padding: 16px">
+          <app-search [type]="'1'" [label]="'请选择日期'" [(value)]="queryUserDate"></app-search>
+          <button mat-icon-button color="primary" type="button" (click)="getUserData()">
+            <mat-icon>search</mat-icon>
+          </button>
+          <button mat-button color="primary" (click)="export(businessUserExport, true)">导出</button>
+        </form>
+        <div *ngIf="!businessUserTable.lists&&businessUserTable.loading">Loading...</div>
+        <div *ngIf="!businessUserTable.lists&&!businessUserTable.loading&&!!businessUserTable.errorMessage"
+             class="center">
+          {{businessUserTable.errorMessage}}
+        </div>
+        <div *ngIf="businessUserTable.lists">
+          <div class="content__table">
+            <app-lib-table
+              [table]="businessUserTable"
+            ></app-lib-table>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="医生端">
+        <form style="padding: 16px">
+          <app-search [type]="'1'" [label]="'请选择日期'" [(value)]="queryUserDate"></app-search>
+          <button mat-icon-button color="primary" type="button" (click)="getDoctorData()">
+            <mat-icon>search</mat-icon>
+          </button>
+          <button mat-button color="primary" (click)="export(businessDoctorExport, false)">导出</button>
+        </form>
+        <div *ngIf="!businessDoctorTable.lists&&businessDoctorTable.loading">Loading...</div>
+        <div *ngIf="!businessDoctorTable.lists&&!businessDoctorTable.loading&&!!businessDoctorTable.errorMessage"
+             class="center">
+          {{businessDoctorTable.errorMessage}}
+        </div>
+        <div *ngIf="businessDoctorTable.lists">
+          <div class="content__table">
+            <app-lib-table
+              [table]="businessDoctorTable"
+            ></app-lib-table>
+          </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</app-container>

@@ -1,0 +1,36 @@
+<app-container [config]="containerConfig" *ngIf="containerConfig">
+  <div class="addition">
+    <button mat-raised-button (click)="getRemoteMenus()">拉取远程菜单</button>
+    <button mat-raised-button (click)="toPush()">发布到远程</button>
+    <button mat-raised-button (click)="newMenu()">新增一级菜单</button>
+  </div>
+  <div class="content">
+    <div *ngIf="!customMenuTable.lists&&customMenuTable.loading">Loading...</div>
+    <div *ngIf="!customMenuTable.lists&&!customMenuTable.loading&&!!customMenuTable.errorMessage" class="center">
+      {{customMenuTable.errorMessage}}
+    </div>
+    <div *ngIf="customMenuTable.lists">
+      <div class="content__table">
+        <app-lib-table
+          [table]="customMenuTable"
+          (handleEmmit)="gotoHandle($event)"
+        ></app-lib-table>
+      </div>
+    </div>
+    <div *ngIf="menuId">
+      <h3 style="padding: 30px 0">{{subMenuTitle}}</h3>
+      <button mat-icon-button (click)="hideSubMenu()" style="float: right">
+        <mat-icon>close</mat-icon>
+      </button>
+      <button mat-raised-button (click)="newSubMenu(menuId)">新增二级菜单</button>
+      <div *ngIf="customSubMenuTable.lists">
+        <div class="content__table">
+          <app-lib-table
+            [table]="customSubMenuTable"
+            (handleEmmit)="gotoHandle($event)"
+          ></app-lib-table>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-container>

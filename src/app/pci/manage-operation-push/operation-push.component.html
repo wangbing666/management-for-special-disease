@@ -1,0 +1,83 @@
+<app-container [config]="containerConfig"  *ngIf="containerConfig">
+  <div class="addition">
+    <button mat-raised-button (click)="newData()">新增Push</button>
+  </div>
+  <div class="content">
+    <mat-tab-group dynamicHeight="true" [selectedIndex]="tab | async" (selectedIndexChange)="change($event)">
+      <mat-tab label="患者端">
+        <div *ngIf="!operationPushTable.lists&&operationPushTable.loading">Loading...</div>
+        <div *ngIf="!operationPushTable.lists&&!operationPushTable.loading&&!!operationPushTable.errorMessage" class="center">
+          {{operationPushTable.errorMessage}}
+        </div>
+        <div *ngIf="operationPushTable.lists">
+          <div class="content__table">
+            <table class="table">
+              <thead>
+              <tr>
+                <th *ngFor="let title of operationPushTable.titles">{{title.name}}</th>
+              </tr>
+              </thead>
+              <tbody *ngIf="operationPushTable.lists">
+              <tr *ngFor="let list of operationPushTable.lists; let i = index">
+                <td *ngFor="let title of operationPushTable.titles" [ngSwitch]="title.controlType" data-title="{{title.name}}">
+                  <div *ngSwitchCase="controlType.index" [style.minWidth.px]="title.minwidth" [style.maxWidth.px]="title.maxwidth"
+                       [ngStyle]="{'text-align': title.align}"
+                       class="table__content">
+                    <span>{{i + 1 + operationPushTable.currentPage * operationPushTable.size}}</span>
+                  </div>
+                  <div *ngSwitchCase="controlType.text" [style.minWidth.px]="title.minwidth" [style.maxWidth.px]="title.maxwidth"
+                       class="table__content">
+                    <span>{{list[title.key] == 0 ? list[title.key] : list[title.key] || ''}}</span>
+                  </div>
+                  <div *ngSwitchCase="controlType.date" [style.minWidth.px]="title.minwidth" [style.maxWidth.px]="title.maxwidth"
+                       class="table__content">
+                    <span>{{list[title.key] | date:"yyyy/MM/dd HH:mm"}}</span>
+                  </div>
+                  <div *ngSwitchCase="controlType.button" [style.minWidth.px]="title.minwidth" class="table__content">
+                    <span (click)="gotoHandle(title.key,list)"  class="table__option">{{title.option || list[title.key] || title.name }}</span>
+                  </div>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="医生端">
+        <div *ngIf="!operationPushDoctorTable.lists&&operationPushDoctorTable.loading">Loading...</div>
+        <div *ngIf="!operationPushDoctorTable.lists&&!operationPushDoctorTable.loading&&!!operationPushDoctorTable.errorMessage" class="center">
+          {{operationPushDoctorTable.errorMessage}}
+        </div>
+        <div *ngIf="operationPushDoctorTable.lists">
+          <div class="content__table">
+            <table class="table">
+              <thead>
+              <tr>
+                <th *ngFor="let title of operationPushDoctorTable.titles">{{title.name}}</th>
+              </tr>
+              </thead>
+              <tbody *ngIf="operationPushDoctorTable.lists">
+              <tr *ngFor="let list of operationPushDoctorTable.lists">
+                <td *ngFor="let title of operationPushDoctorTable.titles" [ngSwitch]="title.controlType" data-title="{{title.name}}">
+                  <div *ngSwitchCase="controlType.text" [style.minWidth.px]="title.minwidth" [style.maxWidth.px]="title.maxwidth"
+                       class="table__content">
+                    <span>{{list[title.key] == 0 ? list[title.key] : list[title.key] || ''}}</span>
+                  </div>
+                  <div *ngSwitchCase="controlType.date" [style.minWidth.px]="title.minwidth" [style.maxWidth.px]="title.maxwidth"
+                       class="table__content">
+                    <span>{{list[title.key] | date:"yyyy/MM/dd HH:mm"}}</span>
+                  </div>
+                  <div *ngSwitchCase="controlType.button" [style.minWidth.px]="title.minwidth" class="table__content">
+                    <span (click)="gotoHandle(title.key,list)"  class="table__option">{{title.option || list[title.key] || title.name }}</span>
+                  </div>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</app-container>
+

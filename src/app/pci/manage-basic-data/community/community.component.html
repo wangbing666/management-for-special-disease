@@ -1,0 +1,21 @@
+<app-container [config]="containerConfig" *ngIf="containerConfig">
+  <div class="addition">
+    <button mat-raised-button (click)="newData()">新增小区</button>
+  </div>
+  <div class="content">
+    <div *ngIf="!communityTable.lists&&communityTable.loading">Loading...</div>
+    <div *ngIf="!communityTable.lists&&!communityTable.loading&&!!communityTable.errorMessage" class="center">
+      {{communityTable.errorMessage}}
+    </div>
+    <div *ngIf="communityTable.lists">
+      <div class="content__table">
+        <app-lib-table
+          [table]="communityTable"
+          (handleEmmit)="gotoHandle($event)"
+          (pageEmitter)="getCommunityList($event)"
+        ></app-lib-table>
+      </div>
+    </div>
+  </div>
+</app-container>
+

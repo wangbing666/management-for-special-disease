@@ -1,0 +1,14 @@
+<app-container [config]="containerConfig" *ngIf="containerConfig">
+  <div class="content">
+    <form *ngIf="form" [formGroup]="form" (ngSubmit)="getValues(form.value)">
+      <app-input-file [form]="form" [data]="config.imageUrl" [(value)]="config.imageUrl.value"></app-input-file>
+      <app-input-text [form]="form" [data]="config.title" [(value)]="config.title.value"></app-input-text>
+      <app-input-radio [form]="form" [data]="config.skipType" [(value)]="config.skipType.value"></app-input-radio>
+      <app-input-text [form]="form" [data]="config.linkUrl" [(value)]="config.linkUrl.value" *ngIf="config.skipType.value==0"></app-input-text>
+      <app-input-file [form]="form" [data]="config.img" [(value)]="config.img.value" *ngIf="config.skipType.value==4"></app-input-file>
+      <app-input-text [form]="form" [data]="config.ranking" [(value)]="config.ranking.value"></app-input-text>
+      <button mat-raised-button color="primary" [disabled]="!form.valid">保存</button>
+    </form>
+    <div *ngIf="errMsg">{{errMsg}}</div>
+  </div>
+</app-container>

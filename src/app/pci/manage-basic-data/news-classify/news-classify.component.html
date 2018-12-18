@@ -1,0 +1,19 @@
+<app-container [config]="containerConfig" *ngIf="containerConfig">
+  <div class="addition">
+    <button mat-raised-button (click)="newData()">新增健康资讯分类</button>
+  </div>
+  <div class="content">
+    <div *ngIf="!newsClassifyTable.lists&&newsClassifyTable.loading">Loading...</div>
+    <div *ngIf="!newsClassifyTable.lists&&!newsClassifyTable.loading&&!!newsClassifyTable.errorMessage" class="center">
+      {{newsClassifyTable.errorMessage}}
+    </div>
+    <div *ngIf="newsClassifyTable.lists">
+      <div class="content__table">
+        <app-lib-table
+          [table]="newsClassifyTable"
+          (handleEmmit)="gotoHandle($event)"
+        ></app-lib-table>
+      </div>
+    </div>
+  </div>
+</app-container>

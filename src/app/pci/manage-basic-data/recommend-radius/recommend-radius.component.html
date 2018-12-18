@@ -1,0 +1,8 @@
+<app-container [config]="containerConfig"  *ngIf="containerConfig">
+  <div class="content">
+    <form *ngIf="form" [formGroup]="form" (ngSubmit)="getValues(form.value)">
+      <app-input-text [form]="form" [data]="config.radii" [(value)]="config.radii.value"></app-input-text>
+      <button mat-raised-button color="primary" [disabled]="!form.valid">保存</button>
+    </form>
+  </div>
+</app-container>

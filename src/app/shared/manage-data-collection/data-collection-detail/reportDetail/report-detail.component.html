@@ -1,0 +1,29 @@
+<div *ngIf="info">
+  <ul class="data-list">
+    <li *ngFor="let obj of info.recordExaminationItemList">
+      <h4>{{obj.title}}</h4>
+      <table *ngFor="let subobj of obj.examinationItemList"
+             style="width:100%;border:1px solid #eee;margin:10px 0;text-align:center;border-collapse:separate;border-spacing:0;">
+        <thead>
+        <tr>
+          <th style="padding: 10px;background: #f9fafb" *ngFor="let item of inspectionList">{{item.title}}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td style="padding: 10px" *ngFor="let item of inspectionList">
+            <div *ngIf="item.key=='value'">
+                <span [class.green]="subobj.standard==0" [class.red]="subobj.standard==2">
+                {{subobj[item.key]&&(subobj[item.key]==0?subobj[item.key]:subobj[item.key]||'/')}}
+                </span>
+            </div>
+            <div *ngIf="item.key!='value'">
+              {{subobj[item.key]&&(subobj[item.key]==0?subobj[item.key]:subobj[item.key]||'/')}}
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </li>
+  </ul>
+</div>

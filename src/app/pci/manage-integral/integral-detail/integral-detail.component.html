@@ -1,0 +1,68 @@
+<app-container [config]="containerConfig" *ngIf="containerConfig">
+  <div class="addition">
+    <button mat-raised-button (click)="integralDiscription()">积分说明</button>
+    <button mat-raised-button (click)="integralManage()">积分规则维护</button>
+    <button mat-raised-button (click)="sendIntegral()">赠送积分给用户</button>
+  </div>
+  <div class="content">
+    <mat-tab-group dynamicHeight="true" [selectedIndex]="tab | async" (selectedIndexChange)="change($event)">
+      <mat-tab label="患者端">
+        <form style="padding: 16px">
+          <mat-form-field floatPlaceholder="always">
+            <input matInput type="text" placeholder="姓名/手机号/项目搜索" name="queryKey"
+                   [(ngModel)]="integralDetailUserTable.queryKey">
+          </mat-form-field>
+          <button mat-icon-button color="primary" type="button" (click)="getIntegralDetailUsers(0)">
+            <mat-icon>search</mat-icon>
+          </button>
+          <button mat-icon-button color="primary" type="button" (click)="reset0()">
+            <mat-icon>autorenew</mat-icon>
+          </button>
+        </form>
+        <div *ngIf="!integralDetailUserTable.lists&&integralDetailUserTable.loading">Loading...</div>
+        <div
+          *ngIf="!integralDetailUserTable.lists&&!integralDetailUserTable.loading&&!!integralDetailUserTable.errorMessage"
+          class="center">
+          {{integralDetailUserTable.errorMessage}}
+        </div>
+        <div *ngIf="integralDetailUserTable.lists">
+          <div class="content__table">
+            <app-lib-table
+              [table]="integralDetailUserTable"
+              (pageEmitter)="getIntegralDetailUsers($event)"
+            ></app-lib-table>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="医生端">
+        <form style="padding: 16px">
+          <mat-form-field floatPlaceholder="always">
+            <input matInput type="text" placeholder="姓名/手机号/项目搜索" name="queryKey"
+                   [(ngModel)]="integralDetailDoctorTable.queryKey">
+          </mat-form-field>
+          <button mat-icon-button color="primary" type="button" (click)="getIntegralDetailDoctors(0)">
+            <mat-icon>search</mat-icon>
+          </button>
+          <button mat-icon-button color="primary" type="button" (click)="reset1()">
+            <mat-icon>autorenew</mat-icon>
+          </button>
+        </form>
+        <div *ngIf="!integralDetailDoctorTable.lists&&integralDetailDoctorTable.loading">Loading...</div>
+        <div
+          *ngIf="!integralDetailDoctorTable.lists&&!integralDetailDoctorTable.loading&&!!integralDetailDoctorTable.errorMessage"
+          class="center">
+          {{integralDetailDoctorTable.errorMessage}}
+        </div>
+        <div *ngIf="integralDetailDoctorTable.lists">
+          <div class="content__table">
+            <app-lib-table
+              [table]="integralDetailDoctorTable"
+              (pageEmitter)="getIntegralDetailDoctors($event)"
+            ></app-lib-table>
+          </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</app-container>
+

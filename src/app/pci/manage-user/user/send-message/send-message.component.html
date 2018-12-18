@@ -1,0 +1,64 @@
+<app-container [config]="containerConfig" *ngIf="containerConfig">
+  <div class="content">
+    <mat-grid-list class="grid" cols="2" rowHeight="fit">
+      <mat-grid-tile [rowspan]="'3'">
+        <div class="container">
+          <div>
+            <mat-form-field floatPlaceholder="always">
+              <input matInput type="text" placeholder="搜索患者姓名／手机号" name="queryKey" [(ngModel)]="queryKey">
+            </mat-form-field>
+            <button mat-icon-button color="primary" type="button" (click)="getUsers(0)">
+              <mat-icon>search</mat-icon>
+            </button>
+            <button mat-icon-button color="primary" type="button" (click)="reset()">
+              <mat-icon>autorenew</mat-icon>
+            </button>
+            <button mat-raised-button color="primary" type="button" (click)="selectAll()">全选</button>
+          </div>
+          <div *ngIf="UserTable.lists">
+            <mat-list class="list">
+              <mat-list-item *ngFor="let item of UserTable.lists"
+                             (click)="selectItem(item)"
+                             class="list_item">
+                <img [src]="item.avatarUrl" [alt]="item.name">
+                <span>{{item.name}}</span>
+              </mat-list-item>
+            </mat-list>
+            <app-lib-page *ngIf="UserTable.totalPage"
+                          [page]="UserTable.currentPage"
+                          [total]="UserTable.totalPage"
+                          (pageEmitter)="getUsers($event)"
+            ></app-lib-page>
+          </div>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile [rowspan]="'2'">
+        <div class="container">
+          <div *ngIf="selectedItems.length!==0">
+            <p style="padding-top: 1em">已选患者：</p>
+            <mat-list>
+              <mat-list-item *ngFor="let select of selectedItems"
+                             class="list_select">
+                <img [src]="select.avatarUrl" [alt]="select.name">
+                <span>{{select.name}}</span>
+                <mat-icon class="close" (click)="removeItem(select)">close</mat-icon>
+              </mat-list-item>
+            </mat-list>
+          </div>
+          <div *ngIf="selectedItems.length===0" style="text-align: center;padding: 1em;">您还没有选择任何患者</div>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile [rowspan]="'1'">
+        <div class="container" style="padding: 1em">
+          <form #f="ngForm" (ngSubmit)="onSubmit(f.value)">
+            <mat-form-field floatPlaceholder="auto" style="width:100%;">
+              <textarea matInput rows="4" name="message" placeholder="请编辑短信内容" ngModel required></textarea>
+            </mat-form-field>
+            <button mat-raised-button color="primary" type="submit">发送</button>
+            <button mat-raised-button type="reset">重置</button>
+          </form>
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
+</app-container>

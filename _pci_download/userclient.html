@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>全程心管家</title>
+  <link rel="stylesheet" href="source/style.css">
+  <script src="source/jquery.min.js"></script>
+  <script src="source/Validform_v5.3.2_min.js"></script>
+</head>
+
+<body class="body">
+  <div class="header">
+    <img class="bg" src="source/background@3x.png">
+  </div>
+  <div class="container invitation">
+    <div class="content">
+      <h6 class="integral">恭喜，您已获得100积分！请填写您的手机号领取。</h6>
+    </div>
+    <div class="content">
+      <input class="phone" type="tel" placeholder="请填写您的手机号" id="mobile" datatype="tel" name="mobile" errormsg="请输入11位有效手机号！" maxlength="11">
+    </div>
+    <div class="Validform_checkti"></div>
+    <div id="Validform_checkti"></div>
+    <div class="content common yanzhengma">
+      <input class="verification" type="tel" placeholder="请输入验证码" datatype="number" id="verification" errormsg="验证码有误！" maxlength="6">
+      <button class="getVerification" >获取验证码</button>
+    </div>
+    <div class="Validform_checkti"></div>
+    <div class="content common">
+      <button class="download" id="userdownload">下载安装<span>（用户端）</span></button>
+    </div>
+  </div>
+  <div class="skip">
+    <a href="javascript:void(0)" class="cnet">跳过输入，直接下载</a>
+  </div>
+  <div class="footer">
+    <div class="share">分享说明：</div>
+    <div class="invite">
+      <ul>
+        <li>1. 首次下载并登录全程心管家，您和您的邀请人均可获得100积分。</li>
+        <li>2. 积分可在心管家内兑换精美礼品，还有更多惊喜等您发现。</li>
+        <li>3. 有任何问题可致电官方客服热线：400-112-1881。</li>
+      </ul>
+    </div>
+  </div>
+  <div id="toast" style="display: none;">
+      <div class="weui-mask_transparent"></div>
+      <div class="weui-toast">
+        <p class="weui-toast__content"></p>
+      </div>
+  </div>
+  <div id="modal" style="display: none;">
+      <div class="weui-mask"></div>
+      <div class="weui-dialog">
+        <div class="weui-dialog__hd"><strong class="weui-dialog__title">提示信息</strong></div>
+        <div class="weui-dialog__bd" id="message">
+        </div>
+        <div class="weui-dialog__ft">
+          <a id="close" href="javascript:;" class="weui-dialog__btn weui-dialog__btn_primary">确定</a>
+        </div>
+      </div>
+  </div>
+  <div class="cover"></div>
+  <script src="source/client.js"></script>
+</body>
+
+</html>

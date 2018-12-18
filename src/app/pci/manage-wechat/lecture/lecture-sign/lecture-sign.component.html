@@ -1,0 +1,17 @@
+<app-container [config]="containerConfig" *ngIf="containerConfig">
+  <div class="content">
+    <div *ngIf="!lectureDetailTable.lists&&lectureDetailTable.loading">Loading...</div>
+    <div *ngIf="!lectureDetailTable.lists&&!lectureDetailTable.loading&&!!lectureDetailTable.errorMessage"
+         class="center">
+      {{lectureDetailTable.errorMessage}}
+    </div>
+    <div *ngIf="lectureDetailTable.lists">
+      <div class="content__table">
+        <app-lib-table
+          [table]="lectureDetailTable"
+          (pageEmitter)="getLectureAuditings(id, $event)"
+        ></app-lib-table>
+      </div>
+    </div>
+  </div>
+</app-container>

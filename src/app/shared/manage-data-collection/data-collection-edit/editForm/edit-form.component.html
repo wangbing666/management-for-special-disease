@@ -1,0 +1,377 @@
+<div *ngIf="info">
+  <form #inputForm="ngForm" (ngSubmit)="save()">
+    <div class="form-content header-margin" *ngIf="imageList.length!==0">
+      <mat-checkbox *ngFor="let img of imageList;let i=index"
+                    name="image{{i}}" [(ngModel)]="img.checked" (change)="getChecked()"
+                    style="padding: 0 15px 15px 0">
+        <label>图{{i+1}} <img [src]="img.imgUrl" width="50" height="50"></label>
+      </mat-checkbox>
+    </div>
+    <div class="form-content">
+      <mat-form-field floatPlaceholder="always" style="width: 100%">
+        <mat-select placeholder="数据类型" name="recordHistoryType" [(ngModel)]="info.recordHistoryType"
+                    (selectionChange)="changeType()" [disabled]="this.editFormData.id" required>
+          <mat-option *ngFor="let item of typeList; let i=index" [value]="i+1">
+            {{item}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="form-content">
+      <mat-form-field floatPlaceholder="always" style="width: 100%">
+        <input matInput [matDatepicker]="checkDate" placeholder="检查时间" name="checkDate" [(ngModel)]="info.checkDate"
+               (dateInput)="saveAsDraft('checkDate')" (dateChange)="saveAsDraft('checkDate')" required>
+        <mat-datepicker-toggle matSuffix [for]="checkDate"></mat-datepicker-toggle>
+        <mat-datepicker #checkDate></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="form-content">
+      <mat-form-field floatPlaceholder="always" style="width: 100%">
+        <input matInput placeholder="医院" name="hospitalName" [value]="hospitalName" [(ngModel)]="info.hospitalName"
+               (blur)="saveAsDraft()">
+      </mat-form-field>
+    </div>
+    <div class="form-content">
+      <mat-form-field floatPlaceholder="always" style="width: 100%">
+        <input matInput placeholder="科室" name="officeName" [(ngModel)]="info.officeName"
+               (blur)="saveAsDraft()" (change)="saveAsDraft()" required>
+      </mat-form-field>
+    </div>
+    <div *ngIf="info.recordHistoryType==1">
+      <div *ngFor="let form of inspectionFormList;let i=index" class="form-sub-list">
+        <div *ngIf="form.deleted">
+          <div class="right-button">
+            <button mat-raised-button type="button" (click)="reInspectionForm(i)">
+              恢复删除检验报告{{i+1}}
+              <i class="undo icon"></i></button>
+          </div>
+        </div>
+        <div *ngIf="!form.deleted">
+          <div class="right-button">
+            <button mat-raised-button type="button" (click)="delInspectionForm(i)">
+              删除检验报告{{i+1}}
+              <i class="remove icon"></i></button>
+          </div>
+          <h3 class="header-data header-margin">检验报告{{i+1}}</h3>
+          <app-inspection-form [id]="this.editFormData.id" [data]="form"
+                               (dataChange)="saveAsDraft()"></app-inspection-form>
+        </div>
+      </div>
+      <div class="button-padding">
+        <button mat-raised-button type="button" (click)="newInspectionForm()">+添加一项检验报告</button>
+      </div>
+    </div>
+    <div *ngIf="info.recordHistoryType==2">
+      <div class="form-content">
+        <mat-form-field floatPlaceholder="always" style="width: 100%">
+          <input matInput placeholder="住院号" name="hospitalNo" [(ngModel)]="info.hospitalNo"
+                 (blur)="saveAsDraft()" (change)="saveAsDraft()">
+        </mat-form-field>
+      </div>
+      <div class="form-content">
+        <mat-form-field floatPlaceholder="always" style="width: 100%">
+          <input matInput placeholder="病理号" name="pathobiologyNo" [(ngModel)]="info.pathobiologyNo"
+                 (blur)="saveAsDraft()" (change)="saveAsDraft()">
+        </mat-form-field>
+      </div>
+      <div class="form-content">
+        <mat-form-field floatPlaceholder="always" style="width: 100%">
+          <input matInput placeholder="X光号" name="xrayNo" [(ngModel)]="info.xrayNo"
+                 (blur)="saveAsDraft()" (change)="saveAsDraft()">
+        </mat-form-field>
+      </div>
+      <div class="form-content">
+        <mat-form-field floatPlaceholder="always" style="width: 100%">
+          <input matInput placeholder="床号" name="bedNo" [(ngModel)]="info.bedNo"
+                 (blur)="saveAsDraft()" (change)="saveAsDraft()">
+        </mat-form-field>
+      </div>
+      <div class="form-content">
+        <mat-form-field floatPlaceholder="always" style="width: 100%">
+          <input matInput placeholder="科别" name="sectionOffice" [(ngModel)]="info.sectionOffice"
+                 (blur)="saveAsDraft()" (change)="saveAsDraft()">
+        </mat-form-field>
+      </div>
+      <div class="form-content">
+        <mat-form-field floatPlaceholder="always" style="width: 100%">
+          <input matInput [matDatepicker]="inTime" placeholder="入院时间" name="inTime" [(ngModel)]="info.inTime"
+                 (dateInput)="saveAsDraft('inTime')" (dateChange)="saveAsDraft('inTime')" required>
+          <mat-datepicker-toggle matSuffix [for]="inTime"></mat-datepicker-toggle>
+          <mat-datepicker #inTime></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="form-content">
+        <mat-form-field floatPlaceholder="always" style="width: 100%">
+          <input matInput [matDatepicker]="outTime" placeholder="出院时间" name="outTime" [(ngModel)]="info.outTime"
+                 (dateInput)="saveAsDraft('outTime')" (dateChange)="saveAsDraft('outTime')" required>
+          <mat-datepicker-toggle matSuffix [for]="outTime"></mat-datepicker-toggle>
+          <mat-datepicker #outTime></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="form-content">
+        <mat-form-field floatPlaceholder="always" style="width: 100%">
+          <textarea matInput placeholder="入院诊断" name="cause" rows="5" [(ngModel)]="info.cause"
+                    (blur)="saveAsDraft()" (change)="saveAsDraft()"></textarea>
+        </mat-form-field>
+      </div>
+      <div class="form-content">
+        <mat-form-field floatPlaceholder="always" style="width: 100%">
+          <textarea matInput placeholder="出院诊断" name="diagnosis" rows="5" [(ngModel)]="info.diagnosis"
+                    (blur)="saveAsDraft()" (change)="saveAsDraft()"></textarea>
+        </mat-form-field>
+      </div>
+      <div class="form-content">
+        <mat-form-field floatPlaceholder="always" style="width: 100%">
+          <input matInput placeholder="患者" name="briefHistoryName" [(ngModel)]="info.briefHistoryName"
+                 (blur)="saveAsDraft()" (change)="saveAsDraft()">
+        </mat-form-field>
+      </div>
+      <div class="form-content">
+        <mat-form-field floatPlaceholder="always" style="width: 100%">
+          <textarea matInput placeholder="主诉" name="briefHistoryChief" rows="5"
+                    [(ngModel)]="info.briefHistoryChief"
+                    (blur)="saveAsDraft()" (change)="saveAsDraft()"></textarea>
+        </mat-form-field>
+      </div>
+      <div class="form-content">
+        <mat-form-field floatPlaceholder="always" style="width: 100%">
+          <textarea matInput placeholder="现病史" name="briefHistoryPresent" rows="5"
+                    [(ngModel)]="info.briefHistoryPresent"
+                    (blur)="saveAsDraft()" (change)="saveAsDraft()"></textarea>
+        </mat-form-field>
+      </div>
+      <div class="form-content">
+        <mat-form-field floatPlaceholder="always" style="width: 100%">
+          <textarea matInput placeholder="既往史" name="briefHistoryPast" rows="5"
+                    [(ngModel)]="info.briefHistoryPast"
+                    (blur)="saveAsDraft()" (change)="saveAsDraft()"></textarea>
+        </mat-form-field>
+      </div>
+      <div class="form-content">
+        <mat-form-field floatPlaceholder="always" style="width: 100%">
+          <input matInput placeholder="体检T(请输入数字)" type="number" name="physicalTemperature" [(ngModel)]="info.physicalTemperature"
+                 (blur)="saveAsDraft()" (change)="saveAsDraft()">
+        </mat-form-field>
+      </div>
+      <div class="form-content">
+        <mat-form-field floatPlaceholder="always" style="width: 100%">
+          <input matInput placeholder="体检P(请输入数字)" type="number" name="physicalPulse" [(ngModel)]="info.physicalPulse"
+                 (blur)="saveAsDraft()" (change)="saveAsDraft()">
+        </mat-form-field>
+      </div>
+      <div class="form-content">
+        <mat-form-field floatPlaceholder="always" style="width: 100%">
+          <input matInput placeholder="体检R(请输入数字)" type="number" name="physicalRespiration" [(ngModel)]="info.physicalRespiration"
+                 (blur)="saveAsDraft()" (change)="saveAsDraft()">
+        </mat-form-field>
+      </div>
+      <div class="form-content">
+        <mat-form-field floatPlaceholder="always" style="width: 100%">
+          <input matInput placeholder="体检BP 低压(请输入数字)" type="number" name="physicalBloodPressureDiastolic"
+                 [(ngModel)]="info.physicalBloodPressureDiastolic"
+                 (blur)="saveAsDraft()" (change)="saveAsDraft()">
+        </mat-form-field>
+      </div>
+      <div class="form-content">
+        <mat-form-field floatPlaceholder="always" style="width: 100%">
+          <input matInput placeholder="体检BP 高压(请输入数字)" type="number" name="physicalBloodPressureSystolic"
+                 [(ngModel)]="info.physicalBloodPressureSystolic"
+                 (blur)="saveAsDraft()" (change)="saveAsDraft()">
+        </mat-form-field>
+      </div>
+      <div class="form-content">
+        <mat-form-field floatPlaceholder="always" style="width: 100%">
+          <textarea matInput placeholder="体检摘要" name="physicalExamination" rows="10"
+                    [(ngModel)]="info.physicalExamination"
+                    (blur)="saveAsDraft()" (change)="saveAsDraft()"></textarea>
+        </mat-form-field>
+      </div>
+      <div>
+        <div *ngFor="let form of inspectionFormList;let i=index" class="form-sub-list">
+          <div *ngIf="form.deleted">
+            <div class="right-button">
+              <button mat-raised-button type="button" (click)="reInspectionForm(i)">
+                恢复删除检验报告{{i+1}}
+                <i class="undo icon"></i></button>
+            </div>
+          </div>
+          <div *ngIf="!form.deleted">
+            <div class="right-button">
+              <button mat-raised-button type="button" (click)="delInspectionForm(i)">
+                删除检验报告{{i+1}}
+                <i class="remove icon"></i></button>
+            </div>
+            <h3 class="header-data header-margin">检验报告{{i+1}}</h3>
+            <app-inspection-form [id]="this.editFormData.id" [data]="form"
+                                 (dataChange)="saveAsDraft()"></app-inspection-form>
+          </div>
+        </div>
+        <div class="button-padding">
+          <button mat-raised-button type="button" (click)="newInspectionForm()">+添加一项检验报告</button>
+        </div>
+      </div>
+      <h3 class="header-data header-margin">影像报告</h3>
+      <div class="field">
+        <div *ngFor="let form of imageFormList;let i=index" class="form-sub-list">
+          <div *ngIf="form.deleted">
+            <div class="right-button">
+              <button mat-raised-button type="button" (click)="reImageForm(i)">
+                恢复删除影像报告{{i+1}}
+                <i class="undo icon"></i></button>
+            </div>
+          </div>
+          <div *ngIf="!form.deleted">
+            <div class="right-button">
+              <button mat-raised-button type="button" (click)="delImageForm(i)">
+                删除影像报告{{i+1}}
+                <i class="remove icon"></i></button>
+            </div>
+            <h3 class="header-data header-margin">影像报告{{i+1}}</h3>
+            <app-image-form [data]="form" (dataChange)="saveAsDraft()" index="{{index}}{{i}}edit"></app-image-form>
+          </div>
+        </div>
+        <div class="button-padding">
+          <button mat-raised-button type="button" (click)="newImageForm()">+添加一项影像报告</button>
+        </div>
+      </div>
+      <div class="ui divider"></div>
+      <div class="form-content">
+        <mat-form-field floatPlaceholder="always" style="width: 100%">
+          <textarea matInput placeholder="病理与治疗情况" name="treatmentCondition" [(ngModel)]="info.treatmentCondition"
+                    [rows]="20" (blur)="saveAsDraft()" (change)="saveAsDraft()"></textarea>
+        </mat-form-field>
+      </div>
+      <div class="form-content">
+        <mat-form-field floatPlaceholder="always" style="width: 100%">
+          <textarea matInput placeholder="治疗结果" name="treatmentResult" [(ngModel)]="info.treatmentResult"
+                    [rows]="20" (blur)="saveAsDraft()" (change)="saveAsDraft()"></textarea>
+        </mat-form-field>
+      </div>
+      <div class="form-content">
+        <mat-form-field floatPlaceholder="always" style="width: 100%">
+          <textarea matInput placeholder="出院时情况" name="leaveCondition" [(ngModel)]="info.leaveCondition"
+                    [rows]="20" (blur)="saveAsDraft()" (change)="saveAsDraft()"></textarea>
+        </mat-form-field>
+      </div>
+      <div class="form-content">
+        <mat-form-field floatPlaceholder="always" style="width: 100%">
+          <textarea matInput placeholder="出院后用药建议" name="leaveSuggestion" [(ngModel)]="info.leaveSuggestion"
+                    [rows]="20" (blur)="saveAsDraft()" (change)="saveAsDraft()"></textarea>
+        </mat-form-field>
+      </div>
+      <div>
+        <div *ngFor="let form of medicineFormList;let i=index"
+             style="padding: 15px;margin-bottom: 15px;border: 1px solid #ccc">
+          <div *ngIf="form.deleted">
+            <div style="text-align: right;">
+              <button mat-raised-button type="button" (click)="reMedicineForm(i)">
+                恢复删除药品{{i+1}}
+                <i class="undo icon"></i></button>
+            </div>
+          </div>
+          <div *ngIf="!form.deleted">
+            <div style="text-align: right;">
+              <button mat-raised-button type="button" (click)="delMedicineForm(i)">
+                删除药品{{i+1}}
+                <i class="remove icon"></i></button>
+            </div>
+            <app-medicine-form [data]="form" (dataChange)="saveAsDraft()"
+                               index="{{index}}{{i}}insp"></app-medicine-form>
+          </div>
+        </div>
+        <div class="button-padding">
+          <button mat-raised-button type="button" (click)="newMedicineForm()">+添加药品</button>
+        </div>
+      </div>
+
+      <div class="form-content">
+        <mat-form-field floatPlaceholder="always" style="width: 100%">
+          <input matInput placeholder="副主任／主任医师" name="physicianChief" [(ngModel)]="info.physicianChief"
+                 (blur)="saveAsDraft()" (change)="saveAsDraft()">
+        </mat-form-field>
+      </div>
+      <div class="form-content">
+        <mat-form-field floatPlaceholder="always" style="width: 100%">
+          <input matInput placeholder="主治医师" name="physicianAttending" [(ngModel)]="info.physicianAttending"
+                 (blur)="saveAsDraft()" (change)="saveAsDraft()">
+        </mat-form-field>
+      </div>
+      <div class="form-content">
+        <mat-form-field floatPlaceholder="always" style="width: 100%">
+          <input matInput placeholder="住院医师" name="physicianResident" [(ngModel)]="info.physicianResident"
+                 (blur)="saveAsDraft()" (change)="saveAsDraft()">
+        </mat-form-field>
+      </div>
+      <div class="form-content">
+        <mat-form-field floatPlaceholder="always" style="width: 100%">
+          <input matInput placeholder="实习医师" name="physicianIntern" [(ngModel)]="info.physicianIntern"
+                 (blur)="saveAsDraft()" (change)="saveAsDraft()">
+        </mat-form-field>
+      </div>
+      <div class="form-content">
+        <mat-form-field floatPlaceholder="always" style="width: 100%">
+          <input matInput [matDatepicker]="writeTime" placeholder="填写时间" name="writeTime" [(ngModel)]="info.writeTime"
+                 (dateInput)="saveAsDraft('writeTime')" (dateChange)="saveAsDraft('writeTime')" required>
+          <mat-datepicker-toggle matSuffix [for]="writeTime"></mat-datepicker-toggle>
+          <mat-datepicker #writeTime></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </div>
+    <div *ngIf="info.recordHistoryType==4">
+      <div *ngFor="let form of medicineFormList;let i=index"
+           style="padding: 15px;margin-bottom: 15px;border: 1px solid #ccc">
+        <div *ngIf="form.deleted">
+          <div style="text-align: right;">
+            <button mat-raised-button type="button" (click)="reMedicineForm(i)">
+              恢复删除药品{{i+1}}
+              <i class="undo icon"></i></button>
+          </div>
+        </div>
+        <div *ngIf="!form.deleted">
+          <div style="text-align: right;">
+            <button mat-raised-button type="button" (click)="delMedicineForm(i)">
+              删除药品{{i+1}}
+              <i class="remove icon"></i></button>
+          </div>
+          <app-medicine-form [data]="form" (dataChange)="saveAsDraft()" index="{{index}}{{i}}edit"></app-medicine-form>
+        </div>
+      </div>
+      <div class="button-padding">
+        <button mat-raised-button type="button" (click)="newMedicineForm()">+添加药品</button>
+      </div>
+    </div>
+    <div *ngIf="info.recordHistoryType==5">
+      <div class="form-content">
+        <mat-form-field floatPlaceholder="always" style="width: 100%">
+          <textarea matInput placeholder="诊断" name="content" rows="20" [(ngModel)]="info.content"
+                    (blur)="saveAsDraft()" (change)="saveAsDraft()"></textarea>
+        </mat-form-field>
+      </div>
+    </div>
+    <div *ngIf="info.recordHistoryType==6">
+      <div class="form-content">
+        <mat-form-field floatPlaceholder="always" style="width: 100%">
+          <textarea matInput placeholder="标题名" name="title" rows="5" [(ngModel)]="info.title"
+                    (blur)="saveAsDraft()" (change)="saveAsDraft()"></textarea>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="form-content" *ngIf="info.recordHistoryType==3">
+      <mat-form-field floatPlaceholder="always" style="width: 100%">
+        <textarea matInput placeholder="诊断" name="reason" [(ngModel)]="info.reason"
+                  (blur)="saveAsDraft()" (change)="saveAsDraft()"></textarea>
+      </mat-form-field>
+    </div>
+    <div class="form-content" *ngIf="info.recordHistoryType==6">
+      <mat-form-field floatPlaceholder="always" style="width: 100%">
+        <textarea matInput placeholder="备注" name="reason" [(ngModel)]="info.remark"
+                  (blur)="saveAsDraft()" (change)="saveAsDraft()"></textarea>
+      </mat-form-field>
+    </div>
+    <div class="form-content button-padding header-margin">
+      <button mat-raised-button type="button" *ngIf="!this.info.id" (click)="saveAsDraft()">保存草稿</button>
+      <button mat-raised-button color="primary" type="submit" [disabled]="!inputForm.valid">保存</button>
+      <button mat-raised-button type="button" *ngIf="this.info.id" (click)="cancel()">取消</button>
+    </div>
+  </form>
+</div>

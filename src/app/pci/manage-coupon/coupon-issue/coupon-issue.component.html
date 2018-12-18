@@ -1,0 +1,37 @@
+<app-container [config]="containerConfig"  *ngIf="containerConfig">
+  <div class="addition">
+    <button mat-raised-button (click)="export()">导出</button>
+  </div>
+  <div class="content">
+    <mat-tab-group dynamicHeight="true">
+      <mat-tab label="已领取">
+        <div *ngIf="!couponGetTable.lists&&couponGetTable.loading">Loading...</div>
+        <div *ngIf="!couponGetTable.lists&&!couponGetTable.loading&&!!couponGetTable.errorMessage" class="center">
+          {{couponGetTable.errorMessage}}
+        </div>
+        <div *ngIf="couponGetTable.lists">
+          <div class="content__table">
+            <app-lib-table
+              [table]="couponGetTable"
+              (pageEmitter)="getCouponList($event)"
+            ></app-lib-table>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="已使用">
+        <div *ngIf="!couponUseTable.lists&&couponUseTable.loading">Loading...</div>
+        <div *ngIf="!couponUseTable.lists&&!couponUseTable.loading&&!!couponUseTable.errorMessage" class="center">
+          {{couponUseTable.errorMessage}}
+        </div>
+        <div *ngIf="couponUseTable.lists">
+          <div class="content__table">
+            <app-lib-table
+              [table]="couponUseTable"
+              (pageEmitter)="useCouponList($event)"
+            ></app-lib-table>
+          </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</app-container>

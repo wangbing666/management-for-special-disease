@@ -1,0 +1,28 @@
+<app-container [config]="containerConfig" *ngIf="containerConfig">
+  <div class="content"><br>
+    <form *ngIf="form" [formGroup]="form" (ngSubmit)="getValues(form.value)">
+
+      <app-input-text [form]="form" [data]="config.name" [value]="config.name.value"></app-input-text>
+      <app-input-dropdown [form]="form" [data]="config.specificationIdx"
+                          [value]="config.specificationIdx.value"></app-input-dropdown>
+      <app-input-text [form]="form" [data]="config.price" [value]="config.price.value"></app-input-text>
+      <app-input-text [form]="form" [data]="config.originalPrice" [value]="config.originalPrice.value"></app-input-text>
+      <app-input-text [form]="form" [data]="config.count" [value]="config.count.value"></app-input-text>
+      <mat-form-field [style.width]="'100%'">
+      <input matInput type="text" [formControlName]="'serviceId'" name="serviceId" placeholder="输入第三方服务以检索" (change)="serviceId=null" (change)="search($event)" (keyup)="search($event)" [(ngModel)]="serviceName">
+      <div class="ui middle aligned divided selection list" style="background-color: #fff">
+      <div class="item" *ngFor="let result of thirdList">
+      <div class="content">
+      <div class="header" (click)="selected(result)">{{result.name}}</div>
+      </div>
+      </div>
+      </div>
+      </mat-form-field><br><br>
+      <app-input-dropdown [form]="form" [data]="config.enable" [value]="config.enable.value"></app-input-dropdown>
+      <button mat-raised-button color="primary" [disabled]="!form.valid">保存</button>
+      <button mat-raised-button type="reset">重置</button>
+    </form>
+  </div>
+</app-container>
+
+

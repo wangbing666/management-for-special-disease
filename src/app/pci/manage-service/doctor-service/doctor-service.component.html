@@ -1,0 +1,17 @@
+<app-container [config]="containerConfig" *ngIf="containerConfig">
+  <div class="content">
+    <div *ngIf="!doctorServiceTable.lists&&doctorServiceTable.loading">Loading...</div>
+    <div *ngIf="!doctorServiceTable.lists&&!doctorServiceTable.loading&&!!doctorServiceTable.errorMessage" class="center">
+      {{doctorServiceTable.errorMessage}}
+    </div>
+    <div *ngIf="doctorServiceTable.lists">
+      <div class="content__table">
+        <app-lib-table
+          [table]="doctorServiceTable"
+          (handleEmmit)="gotoHandle($event)"
+        ></app-lib-table>
+      </div>
+    </div>
+  </div>
+</app-container>
+

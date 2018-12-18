@@ -1,0 +1,135 @@
+<app-container [config]="containerConfig" *ngIf="containerConfig">
+  <div class="content">
+    <mat-tab-group dynamicHeight="true" [selectedIndex]="tab | async" (selectedIndexChange)="change($event)">
+      <mat-tab label="待录入">
+        <form style="padding: 16px">
+          <mat-form-field floatPlaceholder="always" style="width: 250px">
+            <mat-select placeholder="患者所属医院" [(ngModel)]="queryHospital" name="type">
+              <mat-option [value]="opt.id" *ngFor="let opt of hospitalList"
+                          (click)="getDataCollections(waitingTable,0,0)">
+                {{opt.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field floatPlaceholder="always">
+            <input matInput type="text" placeholder="手机号/患者姓名搜索" name="queryKey" [(ngModel)]="waitingTable.queryKey">
+          </mat-form-field>
+          <app-search [type]="'1'" [label]="'上传时间'" [(value)]="queryTime"></app-search>
+          <button mat-icon-button color="primary" type="button" (click)="getDataCollections(waitingTable,0,0)">
+            <mat-icon>search</mat-icon>
+          </button>
+          <button mat-icon-button color="primary" type="button" (click)="reset0()">
+            <mat-icon>autorenew</mat-icon>
+          </button>
+        </form>
+        <div *ngIf="!waitingTable.lists&&waitingTable.loading">Loading...</div>
+        <div *ngIf="!waitingTable.lists&&!waitingTable.loading&&!!waitingTable.errorMessage" class="center">
+          {{waitingTable.errorMessage}}
+        </div>
+        <div *ngIf="waitingTable.lists">
+          <div class="content__table">
+            <app-lib-table
+              [table]="waitingTable"
+              (handleEmmit)="gotoHandle($event)"
+              (pageEmitter)="getDataCollections(waitingTable,0,$event)"
+            ></app-lib-table>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="待审核" *ngIf="auth">
+        <form style="padding: 16px">
+          <mat-form-field floatPlaceholder="always">
+            <input matInput type="text" placeholder="手机号/患者姓名搜索" name="queryKey" [(ngModel)]="auditingTable.queryKey">
+          </mat-form-field>
+          <button mat-icon-button color="primary" type="button" (click)="getDataCollections(auditingTable,0,0)">
+            <mat-icon>search</mat-icon>
+          </button>
+          <button mat-icon-button color="primary" type="button" (click)="reset1()">
+            <mat-icon>autorenew</mat-icon>
+          </button>
+        </form>
+        <div *ngIf="!auditingTable.lists&&auditingTable.loading">Loading...</div>
+        <div *ngIf="!auditingTable.lists&&!auditingTable.loading&&!!auditingTable.errorMessage" class="center">
+          {{auditingTable.errorMessage}}
+        </div>
+        <div *ngIf="auditingTable.lists">
+          <div class="content__table">
+            <app-lib-table
+              [table]="auditingTable"
+              (handleEmmit)="gotoHandle($event)"
+              (pageEmitter)="getDataCollections(auditingTable,1,$event)"
+            ></app-lib-table>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="审核通过" *ngIf="auth">
+        <form style="padding: 16px">
+          <mat-form-field floatPlaceholder="always">
+            <input matInput type="text" placeholder="录入人搜索" name="entering" [(ngModel)]="entering">
+          </mat-form-field>
+          <mat-form-field floatPlaceholder="always">
+            <input matInput type="text" placeholder="手机号/患者姓名搜索" name="queryKey" [(ngModel)]="auditedTable.queryKey">
+          </mat-form-field>
+          <mat-form-field floatPlaceholder="always" style="width: 250px">
+            <mat-select placeholder="病历医院" [(ngModel)]="queryMedicalHospital" name="type">
+              <mat-option [value]="opt.name" *ngFor="let opt of MedicalHospitalsList"
+                          (click)="getDataCollections(auditedTable,3,0)">
+                {{opt.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <app-search [type]="'1'" [label]="'审核通过时间'" [(value)]="queryTime"></app-search>
+          <button mat-icon-button color="primary" type="button" (click)="getDataCollections(auditedTable,3,0)">
+            <mat-icon>search</mat-icon>
+          </button>
+          <button mat-icon-button color="primary" type="button" (click)="reset2()">
+            <mat-icon>autorenew</mat-icon>
+          </button>
+        </form>
+        <div *ngIf="!auditedTable.lists&&auditedTable.loading">Loading...</div>
+        <div *ngIf="!auditedTable.lists&&!auditedTable.loading&&!!auditedTable.errorMessage" class="center">
+          {{auditedTable.errorMessage}}
+        </div>
+        <div *ngIf="auditedTable.lists">
+          <div class="content__table">
+            <app-lib-table
+              [table]="auditedTable"
+              (handleEmmit)="gotoHandle($event)"
+              (pageEmitter)="getDataCollections(auditedTable,3,$event)"
+            ></app-lib-table>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="未处理" *ngIf="auth">
+        <div *ngIf="!unhandledTable.lists&&unhandledTable.loading">Loading...</div>
+        <div *ngIf="!unhandledTable.lists&&!unhandledTable.loading&&!!unhandledTable.errorMessage" class="center">
+          {{unhandledTable.errorMessage}}
+        </div>
+        <div *ngIf="unhandledTable.lists">
+          <div class="content__table">
+            <app-lib-table
+              [table]="unhandledTable"
+              (handleEmmit)="gotoHandle($event)"
+              (pageEmitter)="getDataCollections(unhandledTable,2,$event)"
+            ></app-lib-table>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="审核失败">
+        <div *ngIf="!defeatedTable.lists&&defeatedTable.loading">Loading...</div>
+        <div *ngIf="!defeatedTable.lists&&!defeatedTable.loading&&!!defeatedTable.errorMessage" class="center">
+          {{defeatedTable.errorMessage}}
+        </div>
+        <div *ngIf="defeatedTable.lists">
+          <div class="content__table">
+            <app-lib-table
+              [table]="defeatedTable"
+              (handleEmmit)="gotoHandle($event)"
+              (pageEmitter)="getDataCollections(defeatedTable,2,$event)"
+            ></app-lib-table>
+          </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</app-container>

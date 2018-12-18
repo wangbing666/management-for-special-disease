@@ -1,0 +1,20 @@
+<app-container [config]="containerConfig"  *ngIf="containerConfig">
+  <div class="addition">
+    <button mat-raised-button (click)="newData()">新增药品</button>
+  </div>
+  <div class="content">
+    <div *ngIf="!drugTable.lists&&drugTable.loading">Loading...</div>
+    <div *ngIf="!drugTable.lists&&!drugTable.loading&&!!drugTable.errorMessage" class="center">
+      {{drugTable.errorMessage}}
+    </div>
+    <div *ngIf="drugTable.lists">
+      <div class="content__table">
+        <app-lib-table
+          [table]="drugTable"
+          (handleEmmit)="gotoHandle($event)"
+          (pageEmitter)="getDrug($event)"
+        ></app-lib-table>
+      </div>
+    </div>
+  </div>
+</app-container>

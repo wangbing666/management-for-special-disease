@@ -1,0 +1,24 @@
+<app-container [config]="containerConfig" *ngIf="containerConfig">
+  <div class="content">
+    <form *ngIf="form" [formGroup]="form" (ngSubmit)="getValues(form.value)">
+      <input type="hidden" formControlName="id" [(ngModel)]="config.id.value">
+      <app-input-file [form]="form" [data]="config.contentImgUrl" [(value)]="config.contentImgUrl.value"></app-input-file>
+      <app-input-file [form]="form" [data]="config.imgUrl" [(value)]="config.imgUrl.value"></app-input-file>
+      <app-input-text [form]="form" [data]="config.name" [value]="config.name.value"></app-input-text>
+      <app-input-datetime [form]="form" [data]="config.date" [(value)]="config.date.value"></app-input-datetime>
+      <app-input-text [form]="form" [data]="config.address" [value]="config.address.value"></app-input-text>
+      <app-input-datetime [form]="form" [data]="config.joinLimitDate" [(value)]="config.joinLimitDate.value"></app-input-datetime>
+      <app-input-text [form]="form" [data]="config.url" [value]="config.url.value"></app-input-text>
+
+
+      <app-input-radio [form]="form" [data]="config.isCharge" [value]="config.isCharge.value" (valueChange)="isCharge($event)"></app-input-radio>
+      <app-input-text *ngIf="charge" [form]="form" [data]="config.charge" [value]="config.charge.value"></app-input-text>
+      <app-input-radio [form]="form" [data]="config.joinLimit" [value]="config.joinLimit.value" (valueChange)="joinLimit($event)"></app-input-radio>
+      <app-input-text *ngIf="limit" [form]="form" [data]="config.joinLimitCount" [value]="config.joinLimitCount.value"></app-input-text>
+      <app-input-radio [form]="form" [data]="config.isOnlineDate" [value]="config.isOnlineDate.value" (valueChange)="isOnlineDate($event)"></app-input-radio>
+      <app-input-datetime *ngIf="onlineDate" [form]="form" [data]="config.onlineDate" [value]="config.onlineDate.value"></app-input-datetime>
+      <button mat-raised-button color="primary" [disabled]="!form.valid">保存</button>
+      <button mat-raised-button type="reset">重置</button>
+    </form>
+  </div>
+</app-container>

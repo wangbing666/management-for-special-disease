@@ -1,0 +1,16 @@
+<div class="page__items">
+  <a class="item icon" (click)="getFirstPage()">
+    <mat-icon>first_page</mat-icon>
+  </a>
+  <a class="item icon" (click)="getPrePage()">
+    <mat-icon>chevron_left</mat-icon>
+  </a>
+  <a class="item" *ngFor="let item of pageList" [class.active]="item-1 === page"
+     (click)="getCurrentPage(item)">{{item}}</a>
+  <a class="item icon" (click)="getNextPage()">
+    <mat-icon>chevron_right</mat-icon>
+  </a>
+  <a class="item icon" (click)="getLastPage()">
+    <mat-icon>last_page</mat-icon>
+  </a>
+</div>

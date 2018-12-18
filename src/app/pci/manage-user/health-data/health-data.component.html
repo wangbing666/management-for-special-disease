@@ -1,0 +1,135 @@
+<app-container [config]="containerConfig" *ngIf="containerConfig">
+  <div class="content">
+    <mat-tab-group dynamicHeight="true" [selectedIndex]="tab | async" (selectedIndexChange)="change($event)">
+      <mat-tab label="血压">
+        <form style="padding: 16px">
+          <mat-form-field floatPlaceholder="always">
+            <input matInput type="text" placeholder="手机号／姓名搜索" name="queryKey" [(ngModel)]="pressureTable.queryKey">
+          </mat-form-field>
+          <mat-form-field floatPlaceholder="always">
+            <mat-select placeholder="筛选状态" name="queryBind" [(ngModel)]="queryBind">
+              <mat-option [value]=0>正常</mat-option>
+              <mat-option [value]=1>异常</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <button mat-icon-button color="primary" type="button" (click)="PressureData(0)">
+            <mat-icon>search</mat-icon>
+          </button>
+          <button mat-icon-button color="primary" type="button" (click)="reset()">
+            <mat-icon>autorenew</mat-icon>
+          </button>
+          <button mat-raised-button (click)="exportBlutdruck()">导出</button>
+        </form>
+        <div *ngIf="!pressureTable.lists&&pressureTable.loading">Loading...</div>
+        <div *ngIf="!pressureTable.lists&&!pressureTable.loading&&!!pressureTable.errorMessage" class="center">
+          {{pressureTable.errorMessage}}
+        </div>
+        <div *ngIf="pressureTable.lists">
+          <div class="content__table">
+            <app-lib-table
+              [table]="pressureTable"
+              (pageEmitter)="PressureData($event)"
+            ></app-lib-table>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="血糖">
+        <form style="padding: 16px">
+          <mat-form-field floatPlaceholder="always">
+            <input matInput type="text" placeholder="手机号／姓名搜索" name="queryKey" [(ngModel)]="sugarTable.queryKey">
+          </mat-form-field>
+          <mat-form-field floatPlaceholder="always">
+            <mat-select placeholder="筛选状态" name="queryBind" [(ngModel)]="queryBind">
+              <mat-option [value]=0>正常</mat-option>
+              <mat-option [value]=1>异常</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <button mat-icon-button color="primary" type="button" (click)="getSugarData(0)">
+            <mat-icon>search</mat-icon>
+          </button>
+          <button mat-icon-button color="primary" type="button" (click)="reset()">
+            <mat-icon>autorenew</mat-icon>
+          </button>
+          <button mat-raised-button (click)="exportMmol()">导出</button>
+        </form>
+        <div *ngIf="!sugarTable.lists&&sugarTable.loading">Loading...</div>
+        <div *ngIf="!sugarTable.lists&&!sugarTable.loading&&!!sugarTable.errorMessage" class="center">
+          {{sugarTable.errorMessage}}
+        </div>
+        <div *ngIf="sugarTable.lists">
+          <div class="content__table">
+            <app-lib-table
+              [table]="sugarTable"
+              (pageEmitter)="getSugarData($event)"
+            ></app-lib-table>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="心率">
+        <form style="padding: 16px">
+          <mat-form-field floatPlaceholder="always">
+            <input matInput type="text" placeholder="手机号／姓名搜索" name="queryKey" [(ngModel)]="rateTable.queryKey">
+          </mat-form-field>
+          <mat-form-field floatPlaceholder="always">
+            <mat-select placeholder="筛选状态" name="queryBind" [(ngModel)]="queryBind">
+              <mat-option [value]=0>正常</mat-option>
+              <mat-option [value]=1>异常</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <button mat-icon-button color="primary" type="button" (click)="getRateData(0)">
+            <mat-icon>search</mat-icon>
+          </button>
+          <button mat-icon-button color="primary" type="button" (click)="reset()">
+            <mat-icon>autorenew</mat-icon>
+          </button>
+          <button mat-raised-button (click)="exportHrrest()">导出</button>
+        </form>
+        <div *ngIf="!rateTable.lists&&rateTable.loading">Loading...</div>
+        <div *ngIf="!rateTable.lists&&!rateTable.loading&&!!rateTable.errorMessage" class="center">
+          {{rateTable.errorMessage}}
+        </div>
+        <div *ngIf="rateTable.lists">
+          <div class="content__table">
+            <app-lib-table
+              [table]="rateTable"
+              (pageEmitter)="getRateData($event)"
+            ></app-lib-table>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="体重">
+        <form style="padding: 16px">
+          <mat-form-field floatPlaceholder="always">
+            <input matInput type="text" placeholder="手机号／姓名搜索" name="queryKey" [(ngModel)]="weightTable.queryKey">
+          </mat-form-field>
+          <mat-form-field floatPlaceholder="always">
+            <mat-select placeholder="筛选状态" name="queryBind" [(ngModel)]="queryBind">
+              <mat-option [value]=0>正常</mat-option>
+              <mat-option [value]=1>异常</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <button mat-icon-button color="primary" type="button" (click)="getWeightData(0)">
+            <mat-icon>search</mat-icon>
+          </button>
+          <button mat-icon-button color="primary" type="button" (click)="reset()">
+            <mat-icon>autorenew</mat-icon>
+          </button>
+          <button mat-raised-button (click)="exportWeight()">导出</button>
+        </form>
+        <div *ngIf="!weightTable.lists&&weightTable.loading">Loading...</div>
+        <div *ngIf="!weightTable.lists&&!weightTable.loading&&!!weightTable.errorMessage" class="center">
+          {{weightTable.errorMessage}}
+        </div>
+        <div *ngIf="weightTable.lists">
+          <div class="content__table">
+            <app-lib-table
+              [table]="weightTable"
+              (pageEmitter)="getWeightData($event)"
+            ></app-lib-table>
+          </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</app-container>
+

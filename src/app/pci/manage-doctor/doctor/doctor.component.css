@@ -1,0 +1,15 @@
+.content {
+  position: relative;
+}
+
+.count {
+  position: absolute;
+  top: 10px;
+  left: 460px;
+}
+
+@media (max-width: 600px) {
+  .count {
+    left: 200px;
+  }
+}

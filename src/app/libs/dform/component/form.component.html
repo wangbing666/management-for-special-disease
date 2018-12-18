@@ -1,0 +1,10 @@
+<form (ngSubmit)="onSubmit()" [formGroup]="form" id="app-form" class="lib-form">
+  <div *ngFor="let formdata of formDatas">
+    <app-form-set [formdata]="formdata" [form]="form"></app-form-set>
+  </div>
+  <div class="ui grid">
+    <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid">{{ button || '保存'}}</button>
+    <button mat-raised-button color="primary" type="reset" *ngIf="reset">重置</button>
+    <button mat-raised-button color="primary" type="button" *ngIf="optionButton" (click)="optionClick()">{{optionButton}}</button>
+  </div>
+</form>

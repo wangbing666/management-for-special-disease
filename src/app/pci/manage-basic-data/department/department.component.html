@@ -1,0 +1,20 @@
+<app-container [config]="containerConfig" *ngIf="containerConfig">
+  <div class="addition">
+    <button mat-raised-button (click)="newData()">新增科室</button>
+  </div>
+  <div class="content">
+    <div *ngIf="!departmentTable.lists&&departmentTable.loading">Loading...</div>
+    <div *ngIf="!departmentTable.lists&&!departmentTable.loading&&!!departmentTable.errorMessage" class="center">
+      {{departmentTable.errorMessage}}
+    </div>
+    <div *ngIf="departmentTable.lists">
+      <div class="content__table">
+        <app-lib-table
+          [table]="departmentTable"
+          (handleEmmit)="gotoHandle($event)"
+          (pageEmitter)="getDepartment($event)"
+        ></app-lib-table>
+      </div>
+    </div>
+  </div>
+</app-container>

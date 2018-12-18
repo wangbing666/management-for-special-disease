@@ -1,0 +1,47 @@
+<app-container [config]="containerConfig" *ngIf="containerConfig">
+  <div class="addition">
+    <button mat-raised-button (click)="export()">导出</button>
+  </div>
+  <div class="content">
+    <form style="padding: 16px">
+      <mat-form-field floatPlaceholder="always">
+        <input matInput type="text" placeholder="手机号／姓名搜索"
+               name="queryKey" [(ngModel)]="relationshipTable.queryKey">
+      </mat-form-field>
+      <mat-form-field floatPlaceholder="always">
+        <mat-select placeholder="申请状态" [(ngModel)]="queryStatus" name="queryStatus">
+          <mat-option [value]="''">全部</mat-option>
+          <mat-option [value]="'0'">未添加</mat-option>
+          <mat-option [value]="'1'">申请中</mat-option>
+          <mat-option [value]="'2'">已添加</mat-option>
+          <mat-option [value]="'3'">已拒绝</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field floatPlaceholder="always">
+        <mat-select placeholder="关联渠道" [(ngModel)]="queryChannel" name="queryChannel">
+          <mat-option [value]="''">全部</mat-option>
+          <mat-option [value]="'0'">App</mat-option>
+          <mat-option [value]="'1'">微信服务号</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button mat-icon-button color="primary" type="button" (click)="getRelationships(0)">
+        <mat-icon>search</mat-icon>
+      </button>
+      <button mat-icon-button color="primary" type="button" (click)="reset()">
+        <mat-icon>autorenew</mat-icon>
+      </button>
+    </form>
+    <div *ngIf="!relationshipTable.lists&&relationshipTable.loading">Loading...</div>
+    <div *ngIf="!relationshipTable.lists&&!relationshipTable.loading&&!!relationshipTable.errorMessage" class="center">
+      {{relationshipTable.errorMessage}}
+    </div>
+    <div *ngIf="relationshipTable.lists">
+      <div class="content__table">
+        <app-lib-table
+          [table]="relationshipTable"
+          (pageEmitter)="getRelationships($event)"
+        ></app-lib-table>
+      </div>
+    </div>
+  </div>
+</app-container>

@@ -1,0 +1,67 @@
+<div class="grid-container clear">
+  <div class="row">
+    <div class="col-l-3">
+      <mat-form-field floatPlaceholder="never" style="width: 100%">
+        <input matInput type="text" name="name" [(ngModel)]="info.name" readonly>
+      </mat-form-field>
+    </div>
+    <div class="col-l-2" *ngIf="info.type==0">
+      <mat-form-field floatPlaceholder="never" style="width: 100%">
+        <input matInput type="text" name="min" [ngModel]="'/'" disabled>
+      </mat-form-field>
+    </div>
+    <div class="col-l-2" *ngIf="info.type!=0">
+      <mat-form-field floatPlaceholder="never" style="width: 100%">
+        <input matInput type="text" name="min" [(ngModel)]="info.min"
+               (blur)="saveAsDraft()" (change)="saveAsDraft()">
+      </mat-form-field>
+    </div>
+    <div class="col-l-2" *ngIf="info.type==0">
+      <mat-form-field floatPlaceholder="never" style="width: 100%">
+        <input matInput type="text" name="max" [ngModel]="'/'" disabled>
+      </mat-form-field>
+    </div>
+    <div class="col-l-2" *ngIf="info.type!=0">
+      <mat-form-field floatPlaceholder="never" style="width: 100%">
+        <input matInput type="text" name="max" [(ngModel)]="info.max"
+               (blur)="saveAsDraft()" (change)="saveAsDraft()">
+      </mat-form-field>
+    </div>
+    <!--<div class="col-l-" *ngIf="info.type!=0">-->
+      <!--<mat-form-field floatPlaceholder="never" style="width: 100%">-->
+        <!--<input matInput type="text" name="reference" [ngModel]="'/'" disabled>-->
+      <!--</mat-form-field>-->
+    <!--</div>-->
+    <!--<div class="col-l-2" *ngIf="info.type==0">-->
+      <!--<mat-form-field floatPlaceholder="never" style="width: 100%">-->
+        <!--<input matInput type="text" name="reference" [(ngModel)]="info.reference"-->
+               <!--(blur)="saveAsDraft()" (change)="saveAsDraft()">-->
+      <!--</mat-form-field>-->
+    <!--</div>-->
+    <!--<div class="col-l-2">-->
+      <!--<mat-form-field floatPlaceholder="never" style="width: 100%">-->
+        <!--<input matInput type="text" name="unit" [(ngModel)]="info.unit"-->
+               <!--(blur)="saveAsDraft()" (change)="saveAsDraft()">-->
+      <!--</mat-form-field>-->
+    <!--</div>-->
+    <div class="col-l-3">
+      <mat-form-field floatPlaceholder="never" style="width: 100%">
+        <input matInput type="text" name="value" [(ngModel)]="info.value"
+               (blur)="saveAsDraft()" (change)="saveAsDraft()">
+      </mat-form-field>
+    </div>
+    <div class="col-l-2">
+      <mat-form-field floatPlaceholder="never" style="width: 100%">
+        <mat-select placeholder="" name="standard" [(ngModel)]="info.standard" (selectionChange)="saveAsDraft()">
+          <mat-option *ngFor="let opt of standardOpt" [value]="opt.value">{{opt.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-l-3" style="display: none;">
+      <mat-form-field floatPlaceholder="never" style="width: 100%">
+        <input matInput type="text" name="value" [value]="examinationItemCheckDate" [(ngModel)]="info.examinationItemCheckDate"
+               >
+      </mat-form-field>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,20 @@
+<h1 mat-dialog-title>赠送鲜花</h1>
+<div mat-dialog-content style="width: 900px;">
+  <div>
+    <form *ngIf="form" [formGroup]="form" (ngSubmit)="dialogRef.close(form.value)">
+      <app-input-text [form]="form" [data]="config.flower" [(value)]="config.flower.value" (change)="SendChange($event)"></app-input-text>
+      <div *ngIf="errMsgFlower"><span style="font-size: 14px; color: red;">{{message}}</span></div>
+      <div class="input_container">
+        <input class="input_content"  type="file" (change)="uploadChange($event)">
+        <span class="input_span">选择用户</span>
+        <input type="hidden" [formControlName]="config.exEcl.key" [(ngModel)]="config.exEcl.value">
+      </div>
+      <app-input-text [form]="form" [data]="config.description" [(value)]="config.description.value"></app-input-text>
+      <div style="margin-bottom: 20px;">
+        <button mat-raised-button color="primary" [disabled]="!form.valid">保存</button>
+        <button mat-raised-button type="reset">重置</button>
+      </div>
+    </form>
+    <div *ngIf="errMsg">{{errMsg}}</div>
+  </div>
+</div>

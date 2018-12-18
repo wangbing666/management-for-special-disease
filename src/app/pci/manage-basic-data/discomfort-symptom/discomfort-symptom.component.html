@@ -1,0 +1,29 @@
+<app-container [config]="containerConfig" *ngIf="containerConfig">
+  <div class="addition">
+    <button mat-raised-button (click)="newData()">新增不适症状</button>
+  </div>
+  <div class="content">
+    <form style="padding: 16px" *ngIf="discomfortSymptomTable&&discomfortTypes">
+      <mat-form-field floatPlaceholder="always" style="width: 100%">
+        <mat-select placeholder="请选择不适症状类别" [(ngModel)]="discomfortSymptomTable.queryKey" name="type">
+          <mat-option [value]="opt.id" *ngFor="let opt of discomfortTypes" (click)="getDiscomfortSymptoms()">
+            {{opt.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </form>
+    <div *ngIf="!discomfortSymptomTable.lists&&discomfortSymptomTable.loading">Loading...</div>
+    <div *ngIf="!discomfortSymptomTable.lists&&!discomfortSymptomTable.loading&&!!discomfortSymptomTable.errorMessage"
+         class="center">
+      {{discomfortSymptomTable.errorMessage}}
+    </div>
+    <div *ngIf="discomfortSymptomTable.lists">
+      <div class="content__table">
+        <app-lib-table
+          [table]="discomfortSymptomTable"
+          (handleEmmit)="gotoHandle($event)"
+        ></app-lib-table>
+      </div>
+    </div>
+  </div>
+</app-container>

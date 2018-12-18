@@ -1,0 +1,17 @@
+<app-container [config]="containerConfig" *ngIf="containerConfig">
+  <div class="content">
+    <div *ngIf="!doctorIntegralTable.lists&&doctorIntegralTable.loading">Loading...</div>
+    <div *ngIf="!doctorIntegralTable.lists&&!doctorIntegralTable.loading&&!!doctorIntegralTable.errorMessage"
+         class="center">
+      {{doctorIntegralTable.errorMessage}}
+    </div>
+    <div *ngIf="doctorIntegralTable.lists">
+      <div class="content__table">
+        <app-lib-table
+          [table]="doctorIntegralTable"
+          (pageEmitter)="getIntegralDetail(id, $event)"
+        ></app-lib-table>
+      </div>
+    </div>
+  </div>
+</app-container>

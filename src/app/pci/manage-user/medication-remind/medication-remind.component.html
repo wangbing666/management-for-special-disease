@@ -1,0 +1,43 @@
+<app-container [config]="containerConfig" *ngIf="containerConfig">
+  <div class="addition">
+    <button mat-raised-button (click)="export()">导出</button>
+  </div>
+  <div class="content">
+    <form style="padding: 16px">
+      <mat-form-field floatPlaceholder="always">
+        <input matInput type="text" placeholder="手机号／姓名搜索/药品名" name="queryKey" [(ngModel)]="medicationRemindTable.queryKey">
+      </mat-form-field>
+      <mat-form-field floatPlaceholder="always">
+        <mat-select placeholder="状态" name="queryBind" [(ngModel)]="deleted">
+          <mat-option [value]="''">全部</mat-option>
+          <mat-option [value]="false">未删除</mat-option>
+          <mat-option [value]="true">已删除</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field floatPlaceholder="always">
+        <mat-select placeholder="闹钟开关" name="queryBind" [(ngModel)]="remind">
+          <mat-option [value]="true">打开</mat-option>
+          <mat-option [value]="false">关闭</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button mat-icon-button color="primary" type="button" (click)="getmedicationRemind(0)">
+        <mat-icon>search</mat-icon>
+      </button>
+      <button mat-icon-button color="primary" type="button" (click)="reset()">
+        <mat-icon>autorenew</mat-icon>
+      </button>
+    </form>
+    <div *ngIf="!medicationRemindTable.lists&&medicationRemindTable.loading">Loading...</div>
+    <div *ngIf="!medicationRemindTable.lists&&!medicationRemindTable.loading&&!!medicationRemindTable.errorMessage" class="center">
+      {{medicationRemindTable.errorMessage}}
+    </div>
+    <div *ngIf="medicationRemindTable.lists">
+      <div class="content__table">
+        <app-lib-table
+          [table]="medicationRemindTable"
+          (pageEmitter)="getmedicationRemind($event)"
+        ></app-lib-table>
+      </div>
+    </div>
+  </div>
+</app-container>

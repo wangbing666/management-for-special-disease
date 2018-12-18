@@ -1,0 +1,35 @@
+<app-container [config]="containerConfig" *ngIf="containerConfig">
+  <div class="content">
+    <form *ngIf="form" [formGroup]="form" (ngSubmit)="getValues(form.value)">
+      <app-input-text [form]="form" [data]="config.communityName" [value]="config.communityName.value"></app-input-text>
+      <mat-form-field floatPlaceholder="never" style="width: 95%;">
+        <input matInput type="text" [placeholder]="config.communityAddress.label"
+               [formControlName]="config.communityAddress.key"
+               [(ngModel)]="config.communityAddress.value"
+        >
+      </mat-form-field>
+      <button mat-icon-button color="primary" type="button" (click)="getSerah()">
+        <mat-icon>search</mat-icon>
+      </button>
+      <div>
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="小区经度" readonly  [formControlName]="config.longitude.key" [(ngModel)]="config.longitude.value">
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="小区纬度" readonly  [formControlName]="config.latitude.key" [(ngModel)]="config.latitude.value">
+        </mat-form-field>
+      </div>
+      <baidu-map
+        *ngIf="baidu"
+        ak="kk444e2vQ7GHv11tL1hd21k3T6oKxMjm"
+        [options]="opts"
+        [offline]="offlineOpts"
+        (onMapLoaded)="loadMap($event)"
+        (onMarkerClicked)="clickMarker($event)"
+      ></baidu-map>
+      <button mat-raised-button color="primary" [disabled]="!form.valid">保存</button>
+      <button mat-raised-button type="reset">重置</button>
+    </form>
+    <div *ngIf="errMsg">{{errMsg}}</div>
+  </div>
+</app-container>

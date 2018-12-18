@@ -1,0 +1,47 @@
+<app-container [config]="containerConfig" *ngIf="containerConfig">
+  <div class="content">
+    <mat-tab-group dynamicHeight="true">
+      <mat-tab label="患者活跃度统计">
+        <form style="padding: 16px">
+          <app-search [type]="'1'" [label]="'请选择日期'" [(value)]="queryUserDate" #f></app-search>
+          <button mat-icon-button color="primary" type="button" (click)="getUserQueryResult()">
+            <mat-icon>search</mat-icon>
+          </button>
+        </form>
+        <div *ngIf="!userPeriodTable.lists&&userPeriodTable.loading">Loading...</div>
+        <div *ngIf="!userPeriodTable.lists&&!userPeriodTable.loading&&!!userPeriodTable.errorMessage" class="center">
+          {{userPeriodTable.errorMessage}}
+        </div>
+        <div *ngIf="userPeriodTable.lists">
+          <div class="content__table">
+            <app-lib-table
+              [table]="userPeriodTable"
+            ></app-lib-table>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="医生活跃度统计">
+        <form style="padding: 16px">
+          <app-search [type]="'1'" [label]="'请选择日期'" [(value)]="queryDoctorDate"></app-search>
+          <button mat-icon-button color="primary" type="button" (click)="getDoctorQueryResult()">
+            <mat-icon>search</mat-icon>
+          </button>
+        </form>
+        <div *ngIf="!doctorPeriodTable.lists&&doctorPeriodTable.loading">Loading...</div>
+        <div *ngIf="!doctorPeriodTable.lists&&!doctorPeriodTable.loading&&!!doctorPeriodTable.errorMessage"
+             class="center">
+          {{doctorPeriodTable.errorMessage}}
+        </div>
+        <div *ngIf="doctorPeriodTable.lists">
+          <div class="content__table">
+            <app-lib-table
+              [table]="doctorPeriodTable"
+            ></app-lib-table>
+          </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</app-container>
+
+

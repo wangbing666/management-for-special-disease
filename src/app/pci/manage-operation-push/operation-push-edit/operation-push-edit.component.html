@@ -1,0 +1,84 @@
+<!--<div *ngIf="errorMessage" class="error-message">* {{errorMessage}}</div>-->
+<app-container [config]="containerConfig" *ngIf="containerConfig">
+  <div class="content">
+      <form *ngIf="form" [formGroup]="form" (ngSubmit)="getValues(form.value)">
+        <div class="lib-form-set">
+          <div>
+            <div class="input_container">
+              <mat-radio-group class="example-radio-group" [(ngModel)]="config.typeIdx.value" name="typeIdx" [formControlName]="config.typeIdx.key">
+                <mat-radio-button class="check_content"
+                                 *ngFor="let opt of config.typeIdx.options"
+                                 (click)="sendApp(opt.id)"
+                                 [value]="opt.id"
+                >{{opt.name}}</mat-radio-button>
+              </mat-radio-group>
+              <span class="input_span">{{config.typeIdx.label}}</span>
+            </div>
+          </div>
+        </div>
+        <div class="lib-form-set">
+          <app-input-text [form]="form" [data]="config.content" [value]="config.content.value"></app-input-text>
+        </div>
+        <div class="lib-form-set">
+          <div>
+            <div class="input_container">
+              <mat-radio-group class="example-radio-group" [(ngModel)]="config.type.value" name="type" [formControlName]="config.type.key">
+                <mat-radio-button class="check_content"
+                                 *ngFor="let opt of config.type.options"
+                                 (click)="toPush(opt.id)"
+                                 [value]="opt.id"
+                >{{opt.name}}</mat-radio-button>
+              </mat-radio-group>
+              <span class="input_span">{{config.type.label}}</span>
+            </div>
+          </div>
+        </div>
+        <div class="lib-form-set left" *ngIf="http">
+          <app-input-text [form]="form" [data]="config.pushUrl" [value]="config.pushUrl.value"></app-input-text>
+        </div>
+        <div class="lib-form-set left" *ngIf="skip">
+          <app-input-radio [form]="form" [data]="config.skip" [value]="config.skip.value"></app-input-radio>
+        </div>
+        <div class="lib-form-set left" *ngIf="skip">
+          <app-input-text [form]="form" [data]="config.number" [value]="config.number.value"></app-input-text>
+        </div>
+
+        <div class="lib-form-set">
+          <div>
+            <div class="input_container">
+              <mat-radio-group class="example-radio-group" [(ngModel)]="config.send.value" name="send" [formControlName]="config.send.key">
+                <mat-radio-button class="check_content"
+                                 *ngFor="let opt of config.send.options"
+                                 (click)="sendTime(opt.id)"
+                                 [value]="opt.id"
+                >{{opt.name}}</mat-radio-button>
+              </mat-radio-group>
+              <span class="input_span">{{config.send.label}}</span>
+            </div>
+          </div>
+        </div>
+        <div class="lib-form-set left" *ngIf="date">
+          <app-input-datetime [form]="form" [data]="config.pushTime" [(value)]="config.pushTime.value"></app-input-datetime>
+        </div>
+        <!--<app-input-radio [form]="form" [data]="config.unitId" [value]="config.unitId.value"></app-input-radio>-->
+        <!--<app-input-text [form]="form" [data]="config.numbers" [value]="numbers" class="hidden"></app-input-text>-->
+        <!--<div style="padding-bottom: 1em">-->
+          <!--<mat-form-field>-->
+            <!--<input matInput placeholder="添加服务时长" name="number" #number>-->
+          <!--</mat-form-field>-->
+          <!--<button mat-icon-button type="button" (click)="addNumber(number.value)">-->
+            <!--<mat-icon>add</mat-icon>-->
+          <!--</button>-->
+          <!--<div>-->
+            <!--<span *ngFor="let num of numbers" style="padding-right: 10px">-->
+              <!--{{num}}<mat-icon (click)="delNumber(num)" style="padding-left: 5px">close</mat-icon>-->
+            <!--</span>-->
+          <!--</div>-->
+        <!--</div>-->
+
+        <button mat-raised-button color="primary" [disabled]="!form.valid">保存</button>
+        <button mat-raised-button type="reset">重置</button>
+      </form>
+    </div>
+</app-container>
+

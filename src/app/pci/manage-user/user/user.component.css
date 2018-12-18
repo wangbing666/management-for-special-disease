@@ -1,0 +1,62 @@
+.userVia{
+	display: none;
+}
+.modal-full {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  min-height: 100%;
+  padding: 15px;
+  background-color: #f0f2f5;
+  z-index: 500;
+}
+
+.modal-full > i {
+  position: absolute;
+  top: 25px;
+  right: 25px;
+  color: #fff;
+}
+
+.modal-header {
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  background-color: #0a819c;
+  color: #fff;
+  text-align: center;
+  font-size: 16px;
+}
+
+.modal-container {
+  width: 100%;
+  border: 1px solid #0a819c;
+  padding: 15px;
+  background-color: #fff;
+}
+
+.modal-show {
+  background-color: rgba(0, 0, 0, .5) !important;
+}
+
+.modal-show .modal {
+  width: 500px !important;
+  margin-top: -200px !important;
+  margin-left: -250px !important;
+}
+.register-btn{
+  position: relative;
+}
+.batchRegister{
+  cursor: pointer;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}

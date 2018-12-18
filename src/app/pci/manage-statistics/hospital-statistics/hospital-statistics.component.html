@@ -1,0 +1,38 @@
+<app-container [config]="containerConfig" *ngIf="containerConfig">
+  <div class="content">
+    <form style="padding: 16px">
+      <app-search [type]="'1'" [label]="'请选择日期'" [(value)]="userTable.queryKey.date" #f></app-search>
+      <mat-form-field floatPlaceholder="always" *ngIf="hospitalList" style="width: 300px">
+        <mat-select placeholder="选择医院渠道" [(ngModel)]="userTable.queryKey.channel" name="channel">
+          <mat-option *ngFor="let opt of hospitalList" [value]="opt.id">{{opt.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button mat-icon-button color="primary" type="button" (click)="getUsers(0)">
+        <mat-icon>search</mat-icon>
+      </button>
+      <button mat-icon-button color="primary" type="button" (click)="reset()">
+        <mat-icon>autorenew</mat-icon>
+      </button>
+    </form>
+    <div *ngIf="!userTable.lists&&userTable.loading">Loading...</div>
+    <div *ngIf="!userTable.lists&&!userTable.loading&&!!userTable.errorMessage" class="center">
+      {{userTable.errorMessage}}
+    </div>
+    <div *ngIf="userTable.lists">
+      <div *ngIf="userRegisterCount" style="text-align:center;font-size:16px;padding-top: 16px">
+        <strong style="padding-right: 15px">总数据</strong>
+        <strong style="padding-right: 15px">注册用户数：{{userRegisterCount.registerTotal || 0}}</strong>
+        <strong style="padding-right: 15px">实名认证用户数：{{userRegisterCount.validateTotal || 0}}</strong>
+        <strong style="padding-right: 15px">申请医患关联用户数：{{userRegisterCount.relationTotal || 0}}</strong>
+        <strong style="padding-right: 15px">上传病例用户数：{{userRegisterCount.uploadTotal || 0}}</strong>
+        <strong style="padding-right: 15px">二维码扫描总次数：{{userRegisterCount.clickTotal || 0}}</strong>
+      </div>
+      <div class="content__table">
+        <app-lib-table
+          [table]="userTable"
+          (pageEmitter)="getUsers($event)"
+        ></app-lib-table>
+      </div>
+    </div>
+  </div>
+</app-container>

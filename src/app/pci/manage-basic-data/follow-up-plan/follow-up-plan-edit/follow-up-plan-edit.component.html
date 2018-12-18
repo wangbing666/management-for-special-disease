@@ -1,0 +1,13 @@
+<app-container [config]="containerConfig" *ngIf="containerConfig">
+  <div class="content">
+    <form *ngIf="form" [formGroup]="form" (ngSubmit)="getValues(form.value)">
+      <app-input-dropdown [form]="form" [data]="config.type" [value]="config.type.value"></app-input-dropdown>
+      <app-input-dropdown [form]="form" [data]="config.custom" [value]="custom" (valueChange)="setCustom($event)"></app-input-dropdown>
+      <app-input-text [form]="form" [data]="config.name" [value]="config.name.value"
+                      *ngIf="custom==7"
+      ></app-input-text>
+      <button mat-raised-button color="primary" [disabled]="!form.valid">保存</button>
+      <button mat-raised-button type="reset">重置</button>
+    </form>
+  </div>
+</app-container>

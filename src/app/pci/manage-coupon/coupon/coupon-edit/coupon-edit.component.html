@@ -1,0 +1,58 @@
+<app-container [config]="containerConfig" *ngIf="containerConfig">
+  <div class="content">
+    <form *ngIf="form" [formGroup]="form" (ngSubmit)="getValues(form.value)">
+      <app-input-text [form]="form" [data]="config.name" [value]="config.name.value"></app-input-text>
+      <div>
+        <span>优惠券面值</span>
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="订单满" type="number"  [formControlName]="config.fullPrice.key" [(ngModel)]="config.fullPrice.value">
+        </mat-form-field>
+        <span>元</span>
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="减" type="number"   [formControlName]="config.price.key" [(ngModel)]="config.price.value">
+        </mat-form-field>
+        <span>元</span>
+        <span class="price" *ngIf="price">优惠价格不能多于订单价格</span>
+      </div>
+      <app-input-text [form]="form" [data]="config.code" [value]="config.code.value"></app-input-text>
+      <app-input-text [form]="form" *ngIf="grantNums" [data]="config.grantNum" [value]="config.grantNum.value"></app-input-text>
+      <app-input-text [form]="form" *ngIf="newSurplusNum" [data]="config.newSurplusNum" [value]="config.newSurplusNum.value"></app-input-text>
+      <div class="input_container">
+        <mat-select style="width: 100%"
+                   [placeholder]="config.assignUser.label"
+                   [formControlName]="config.assignUser.key"
+                   [(ngModel)]="config.assignUser.value"
+                   (change) = "getDonate($event)"
+        >
+          <mat-option *ngFor="let opt of config.assignUser.options" [value]="opt.id">
+            {{opt.name}}
+          </mat-option>
+        </mat-select>
+      </div>
+      <app-input-radio [form]="form" *ngIf="config.assignUser.value" [data]="config.isDonate" [value]="config.isDonate.value" (valueChange)="getExecl($event)"></app-input-radio>
+      <!--<input class="input_content" #file type="file" (change)="uploadChange($event)">-->
+      <div class="input_container" *ngIf="exEcl">
+        <input class="input_content" #file type="file" (change)="uploadChange($event)">
+        <span class="input_span">上传表格</span>
+      </div>
+      <app-input-radio [form]="form" [data]="config.useRange" [value]="config.useRange.value" (valueChange)="usableRange($event)"></app-input-radio>
+      <div class="input_container" *ngIf="service">
+        <mat-select style="width: 100%"
+                   [placeholder]="config.thirdPartyServiceId.label"
+                   [formControlName]="config.thirdPartyServiceId.key"
+                   [(ngModel)]="config.thirdPartyServiceId.value"
+        >
+          <mat-option *ngFor="let opt of config.thirdPartyServiceId.options" [value]="opt.id">
+            {{opt.name}}
+          </mat-option>
+        </mat-select>
+      </div>
+      <app-input-dropdown [form]="form" [data]="config.organizationId" [(value)]="config.organizationId.value"></app-input-dropdown>
+      <app-input-date [form]="form" [data]="config.startDate" [(value)]="config.startDate.value"></app-input-date>
+      <app-input-date [form]="form" [data]="config.endDate" [(value)]="config.endDate.value"></app-input-date>
+      <button mat-raised-button color="primary" [disabled]="!form.valid">保存</button>
+      <button mat-raised-button type="reset">重置</button>
+    </form>
+  </div>
+</app-container>
+

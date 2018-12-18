@@ -1,0 +1,76 @@
+<app-container [config]="containerConfig" *ngIf="containerConfig">
+  <div class="addition">
+    <button mat-raised-button (click)="sendFlowerDoctor()">赠送鲜花给医生</button>
+  </div>
+  <div class="content">
+    <mat-tab-group dynamicHeight="true" [selectedIndex]="tab | async" (selectedIndexChange)="change($event)">
+      <mat-tab label="全部账户">
+        <form style="padding: 16px">
+          <mat-form-field floatPlaceholder="always">
+            <input matInput type="text" placeholder="手机号／姓名搜索" name="queryKey"
+                   [(ngModel)]="doctorAccountTable.queryKey">
+          </mat-form-field>
+          <button mat-icon-button color="primary" type="button" (click)="getDoctorAccounts(0)">
+            <mat-icon>search</mat-icon>
+          </button>
+          <button mat-icon-button color="primary" type="button" (click)="resetAccount()">
+            <mat-icon>autorenew</mat-icon>
+          </button>
+        </form>
+        <div *ngIf="!doctorAccountTable.lists&&doctorAccountTable.loading">Loading...</div>
+        <div *ngIf="!doctorAccountTable.lists&&!doctorAccountTable.loading&&!!doctorAccountTable.errorMessage"
+             class="center">
+          {{doctorAccountTable.errorMessage}}
+        </div>
+        <div *ngIf="doctorAccountTable.lists">
+          <div class="content__table">
+            <app-lib-table
+              [table]="doctorAccountTable"
+              (handleEmmit)="gotoHandle($event)"
+              (pageEmitter)="getDoctorAccounts($event)"
+            ></app-lib-table>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="提现处理">
+        <div *ngIf="!withdrawDepositTable.lists&&withdrawDepositTable.loading">Loading...</div>
+        <div *ngIf="!withdrawDepositTable.lists&&!withdrawDepositTable.loading&&!!withdrawDepositTable.errorMessage"
+             class="center">
+          {{withdrawDepositTable.errorMessage}}
+        </div>
+        <div *ngIf="withdrawDepositTable.lists">
+          <div class="content__table">
+            <app-lib-table
+              [table]="withdrawDepositTable"
+              (handleEmmit)="gotoHandle($event)"
+              (pageEmitter)="getWithdrawDeposits($event)"
+            ></app-lib-table>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="商品兑换">
+        <div *ngIf="!commodityExchangeTable.lists&&commodityExchangeTable.loading">Loading...</div>
+        <div
+          *ngIf="!commodityExchangeTable.lists&&!commodityExchangeTable.loading&&!!commodityExchangeTable.errorMessage"
+          class="center">
+          {{commodityExchangeTable.errorMessage}}
+        </div>
+        <div *ngIf="commodityExchangeTable.lists">
+          <div class="content__table">
+            <app-lib-table
+              [table]="commodityExchangeTable"
+              (handleEmmit)="gotoHandle($event)"
+              (pageEmitter)="getCommodityExchanges($event)"
+            ></app-lib-table>
+          </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+    <div class="count1">
+      <mat-chip color="accent" selected="true">{{count1}}</mat-chip>
+    </div>
+    <div class="count2">
+      <mat-chip color="accent" selected="true">{{count2}}</mat-chip>
+    </div>
+  </div>
+</app-container>

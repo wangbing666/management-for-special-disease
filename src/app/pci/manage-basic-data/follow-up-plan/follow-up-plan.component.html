@@ -1,0 +1,29 @@
+<app-container [config]="containerConfig" *ngIf="containerConfig">
+  <div class="addition">
+    <button mat-raised-button (click)="newData()">新增随访计划模版</button>
+  </div>
+  <div class="content">
+    <form style="padding: 16px" *ngIf="followUpPlanTable&&discomfortTypes">
+      <mat-form-field floatPlaceholder="always" style="width: 100%">
+        <mat-select placeholder="请选择随访计划模版类型" [(ngModel)]="followUpPlanTable.queryKey" (change)="setQuery()"
+                    name="type">
+          <mat-option [value]="opt.id" *ngFor="let opt of discomfortTypes" (click)="getFollowUpPlans()">
+            {{opt.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </form>
+    <div *ngIf="!followUpPlanTable.lists&&followUpPlanTable.loading">Loading...</div>
+    <div *ngIf="!followUpPlanTable.lists&&!followUpPlanTable.loading&&!!followUpPlanTable.errorMessage" class="center">
+      {{followUpPlanTable.errorMessage}}
+    </div>
+    <div *ngIf="followUpPlanTable.lists">
+      <div class="content__table">
+        <app-lib-table
+          [table]="followUpPlanTable"
+          (handleEmmit)="gotoHandle($event)"
+        ></app-lib-table>
+      </div>
+    </div>
+  </div>
+</app-container>

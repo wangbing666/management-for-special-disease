@@ -1,0 +1,19 @@
+<h1 mat-dialog-title>{{option.name}}位置</h1>
+<div mat-dialog-content style="width: 500px;">
+  <div *ngIf="option">
+    <mat-list style="display: block; margin: 10px 0">
+      <mat-list-item> 医院地点 </mat-list-item>
+      <mat-list-item style="padding-left: 20px;"> {{option.hospitalAddress}} </mat-list-item>
+    </mat-list>
+    <mat-list style="display: block; margin: 10px 0">
+      <mat-list-item> 医院坐标 </mat-list-item>
+      <mat-list-item style="padding-left: 20px;">{{option.longitude}} , {{option.latitude}} </mat-list-item>
+    </mat-list>
+    <baidu-map style="width: 100%;
+                      height: 500px;
+                      display: block;"
+               ak="kk444e2vQ7GHv11tL1hd21k3T6oKxMjm"
+               [options]="opts"
+    ></baidu-map>
+  </div>
+</div>

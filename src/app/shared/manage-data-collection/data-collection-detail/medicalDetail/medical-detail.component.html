@@ -1,0 +1,12 @@
+<div *ngIf="info">
+  <h3>出院带药</h3>
+  <div *ngFor="let obj of info.recordPrescriptionMedicineList">
+    <ul class="data-list">
+      <li *ngFor="let item of medicalList">
+        <div *ngIf="item.key!='startTime'&&item.key!='remind'"><h4 class="inline">{{item.title}}：</h4>{{obj[item.key]}}</div>
+        <div *ngIf="item.key=='startTime'"><h4 class="inline">{{item.title}}：</h4>{{obj[item.key] | date:"yyyy-MM-dd"}}</div>
+        <div *ngIf="item.key=='remind'"><h4 class="inline">{{item.title}}：</h4>{{obj[item.key] ? '开启' : '关闭'}}</div>
+      </li>
+    </ul>
+  </div>
+</div>

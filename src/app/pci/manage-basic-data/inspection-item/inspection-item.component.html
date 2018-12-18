@@ -1,0 +1,30 @@
+<app-container [config]="containerConfig" *ngIf="containerConfig">
+  <div class="addition">
+    <button mat-raised-button (click)="newData()">新增检查类目</button>
+  </div>
+  <div class="content">
+    <form style="padding: 16px" *ngIf="inspectionItemTable&&inspectionType">
+      <mat-form-field floatPlaceholder="always" style="width: 100%">
+        <mat-select placeholder="请选择检查类目" [(ngModel)]="inspectionItemTable.queryKey" name="type">
+          <mat-option [value]="opt.id" *ngFor="let opt of inspectionType" (click)="getInspectionItems(0)">
+            {{opt.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </form>
+    <div *ngIf="!inspectionItemTable.lists&&inspectionItemTable.loading">Loading...</div>
+    <div *ngIf="!inspectionItemTable.lists&&!inspectionItemTable.loading&&!!inspectionItemTable.errorMessage"
+         class="center">
+      {{inspectionItemTable.errorMessage}}
+    </div>
+    <div *ngIf="inspectionItemTable.lists">
+      <div class="content__table">
+        <app-lib-table
+          [table]="inspectionItemTable"
+          (handleEmmit)="gotoHandle($event)"
+          (pageEmitter)="getInspectionItems($event)"
+        ></app-lib-table>
+      </div>
+    </div>
+  </div>
+</app-container>

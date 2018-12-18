@@ -1,0 +1,61 @@
+<app-container [config]="containerConfig" *ngIf="containerConfig">
+  <div class="content">
+    <div *ngIf="errorMessage" class="error-message">
+      <p>{{errorMessage}}</p>
+      <button class="ui button small" (click)="getDataCollection()">点击刷新</button>
+    </div>
+    <div *ngIf="userInfo">
+      <div *ngIf="userInfo.status==1||userInfo.status==3">
+        <div class="grid-container clear">
+          <div class="row">
+            <div class="col-3">
+              <app-userinfo [user]="userInfo" [type]="false"></app-userinfo>
+              <div id="dataShow" class="show-container" *ngIf="userInfo.recordHistoryDtoList&&commonList">
+                <div *ngFor="let obj of userInfo.recordHistoryDtoList;let i=index" class="show-content">
+                  <h3 style="padding: 10px 0;border-bottom: 2px solid #eee;margin-bottom: 15px;">病史资料{{i+1}}</h3>
+                  <ul class="data-list">
+                    <li *ngFor="let user of commonList">
+                      <h4 class="inline">{{user.title}}:</h4> {{obj[user.key]}}
+                    </li>
+                    <li #f hidden="true">
+                      <div *ngIf="obj.recordHistoryType==1">
+                        <app-report-detail [info]="obj.object"></app-report-detail>
+                      </div>
+                      <div *ngIf="obj.recordHistoryType==2">
+                        <app-brief-detail [info]="obj.object"></app-brief-detail>
+                      </div>
+                      <div *ngIf="obj.recordHistoryType==4">
+                        <app-medical-detail [info]="obj.object"></app-medical-detail>
+                      </div>
+                      <div *ngIf="obj.recordHistoryType==5">
+                        <app-record-detail [info]="obj.object"></app-record-detail>
+                      </div>
+                      <div *ngIf="obj.recordHistoryType==6">
+                        <app-other-detail [info]="obj.object"></app-other-detail>
+                      </div>
+                      <div *ngFor="let img of obj.medicalRecordPhotoList" class="show-image">
+                        <img src="{{img.imgUrl}}">
+                      </div>
+                    </li>
+                  </ul>
+                  <div class="show-button">
+                    <button mat-raised-button *ngIf="f.hidden" (click)="f.hidden=!f.hidden">展开详情</button>
+                    <button mat-raised-button *ngIf="!f.hidden" (click)="f.hidden=!f.hidden">收起详情</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="userInfo" class="col-3">
+              <app-image-show [imgList]="userInfo.medicalRecordPhotoList"></app-image-show>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <button mat-raised-button (click)="toAudit()">提交复审</button>
+      <button mat-raised-button (click)="toUnpass()">审核不通过</button>
+      <button mat-raised-button (click)="toPass()">通过上线</button>
+    </div>
+  </div>
+</app-container>

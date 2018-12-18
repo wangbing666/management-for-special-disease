@@ -1,0 +1,20 @@
+<app-container [config]="containerConfig"  *ngIf="containerConfig">
+  <div class="addition">
+    <button mat-raised-button (click)="newData()">新增广告位</button>
+  </div>
+  <div class="content">
+    <div *ngIf="!adDoctorTable.lists&&adDoctorTable.loading">Loading...</div>
+    <div *ngIf="!adDoctorTable.lists&&!adDoctorTable.loading&&!!adDoctorTable.errorMessage" class="center">
+      {{adDoctorTable.errorMessage}}
+    </div>
+    <div *ngIf="adDoctorTable.lists">
+      <div class="content__table">
+        <app-lib-table
+          [table]="adDoctorTable"
+          (handleEmmit)="gotoHandle($event)"
+          (pageEmitter)="getAdDoctor($event)"
+        ></app-lib-table>
+      </div>
+    </div>
+  </div>
+</app-container>

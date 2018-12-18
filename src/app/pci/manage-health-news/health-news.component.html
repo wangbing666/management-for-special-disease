@@ -1,0 +1,30 @@
+<app-container [config]="containerConfig" *ngIf="containerConfig">
+  <div class="addition">
+    <button mat-raised-button (click)="newReadingQuantity()">配置阅读系数</button>
+    <button mat-raised-button (click)="newData()">新增健康资讯</button>
+  </div>
+  <div class="content">
+    <form style="padding: 16px" *ngIf="healthNewsTable&&healthNewsType">
+      <mat-form-field floatPlaceholder="always" style="width: 100%">
+        <mat-select placeholder="请选择健康资讯分类" [(ngModel)]="healthNewsTable.queryKey" name="type">
+          <mat-option [value]="opt.id" *ngFor="let opt of healthNewsType" (click)="getHealthNews(0)">
+            {{opt.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </form>
+    <div *ngIf="!healthNewsTable.lists&&healthNewsTable.loading">Loading...</div>
+    <div *ngIf="!healthNewsTable.lists&&!healthNewsTable.loading&&!!healthNewsTable.errorMessage" class="center">
+      {{healthNewsTable.errorMessage}}
+    </div>
+    <div *ngIf="healthNewsTable.lists">
+      <div class="content__table">
+        <app-lib-table
+          [table]="healthNewsTable"
+          (handleEmmit)="gotoHandle($event)"
+          (pageEmitter)="getHealthNews($event)"
+        ></app-lib-table>
+      </div>
+    </div>
+  </div>
+</app-container>

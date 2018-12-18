@@ -1,0 +1,17 @@
+<app-container [config]="containerConfig" *ngIf="containerConfig">
+  <div class="content">
+    <div *ngIf="!exchangeCommoditiesTable.lists&&exchangeCommoditiesTable.loading">Loading...</div>
+    <div *ngIf="!exchangeCommoditiesTable.lists&&!exchangeCommoditiesTable.loading&&!!exchangeCommoditiesTable.errorMessage"
+         class="center">
+      {{exchangeCommoditiesTable.errorMessage}}
+    </div>
+    <div *ngIf="exchangeCommoditiesTable.lists">
+      <div class="content__table">
+        <app-lib-table
+          [table]="exchangeCommoditiesTable"
+          (pageEmitter)="getExchangeCommodities(id, $event)"
+        ></app-lib-table>
+      </div>
+    </div>
+  </div>
+</app-container>

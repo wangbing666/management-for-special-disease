@@ -1,0 +1,64 @@
+<div [formGroup]="form" #formSet>
+  <div [ngSwitch]="formdata.controlType" class="lib-form-set">
+    <div *ngSwitchCase="formControl.text" class="lib-form__content">
+      <div class="lib-input">
+        <app-input-text [form]="form" [data]="formdata" [(value)]="formdata.value"></app-input-text>
+      </div>
+    </div>
+    <div *ngSwitchCase="formControl.hidden">
+      <div class="lib-input">
+        <app-input-hidden [form]="form" [data]="formdata" [value]="formdata.value"></app-input-hidden>
+      </div>
+    </div>
+    <div *ngSwitchCase="formControl.date" class="lib-form__content">
+      <div class="lib-input">
+        <app-input-date [form]="form" [data]="formdata" [(value)]="formdata.value"></app-input-date>
+      </div>
+    </div>
+    <div *ngSwitchCase="formControl.time" class="lib-form__content">
+      <div class="lib-input">
+        <app-input-time [form]="form" [data]="formdata" [(value)]="formdata.value"></app-input-time>
+      </div>
+    </div>
+    <div *ngSwitchCase="formControl.datetime" class="lib-form__content">
+      <div class="lib-input">
+        <app-input-datetime [form]="form" [data]="formdata" [(value)]="formdata.value"></app-input-datetime>
+      </div>
+    </div>
+    <div *ngSwitchCase="formControl.textarea" class="lib-form__content">
+      <div class="lib-input">
+        <app-input-textarea [form]="form" [data]="formdata" [(value)]="formdata.value"></app-input-textarea>
+      </div>
+    </div>
+    <div *ngSwitchCase="formControl.editor" class="lib-form__content">
+      <div class="lib-input">
+        <app-input-editor [form]="form" [data]="formdata" [(value)]="formdata.value"></app-input-editor>
+      </div>
+    </div>
+    <div *ngSwitchCase="formControl.checkbox" class="lib-form__content">
+      <div class="lib-input">
+        <app-input-checkbox [form]="form" [data]="formdata" [(value)]="formdata.value"></app-input-checkbox>
+      </div>
+    </div>
+    <div *ngSwitchCase="formControl.tree" class="lib-form__content">
+      <div class="lib-input">
+        <app-input-tree [form]="form" [data]="formdata" [(value)]="formdata.value"></app-input-tree>
+      </div>
+    </div>
+    <div *ngSwitchCase="formControl.radio" class="lib-form__content">
+      <div class="lib-input">
+        <app-input-radio [form]="form" [data]="formdata" [(value)]="formdata.value"></app-input-radio>
+      </div>
+    </div>
+    <div *ngSwitchCase="formControl.dropdown" class="lib-form__content">
+      <div class="lib-input">
+        <app-input-dropdown [form]="form" [data]="formdata" [(value)]="formdata.value"></app-input-dropdown>
+      </div>
+    </div>
+    <div *ngSwitchCase="formControl.file" class="lib-form__content">
+      <div class="lib-input">
+        <app-input-file [form]="form" [data]="formdata" [(value)]="formdata.value"></app-input-file>
+      </div>
+    </div>
+  </div>
+</div>

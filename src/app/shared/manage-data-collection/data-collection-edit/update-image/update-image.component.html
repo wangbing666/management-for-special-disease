@@ -1,0 +1,9 @@
+<app-container [config]="containerConfig" *ngIf="containerConfig">
+  <div class="content">
+    <form *ngIf="form" [formGroup]="form" (ngSubmit)="getValues(form.value)">
+      <input type="hidden" formControlName="id" [(ngModel)]="config.id.value">
+      <app-input-file [form]="form" [data]="config.imglist" [(value)]="config.imglist.value"></app-input-file>
+      <button mat-raised-button color="primary" [disabled]="!form.valid">保存</button>
+    </form>
+  </div>
+</app-container>

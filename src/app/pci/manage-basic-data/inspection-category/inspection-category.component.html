@@ -1,0 +1,19 @@
+<app-container [config]="containerConfig" *ngIf="containerConfig">
+  <div class="addition">
+    <button mat-raised-button (click)="newData()">新增检查类目</button>
+  </div>
+  <div class="content">
+    <div *ngIf="!inspectionCategoryTable.lists&&inspectionCategoryTable.loading">Loading...</div>
+    <div *ngIf="!inspectionCategoryTable.lists&&!inspectionCategoryTable.loading&&!!inspectionCategoryTable.errorMessage" class="center">
+      {{inspectionCategoryTable.errorMessage}}
+    </div>
+    <div *ngIf="inspectionCategoryTable.lists">
+      <div class="content__table">
+        <app-lib-table
+          [table]="inspectionCategoryTable"
+          (handleEmmit)="gotoHandle($event)"
+        ></app-lib-table>
+      </div>
+    </div>
+  </div>
+</app-container>

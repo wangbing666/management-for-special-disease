@@ -1,0 +1,25 @@
+<app-container [config]="containerConfig" *ngIf="containerConfig">
+  <div class="content">
+    <div *ngIf="errMsg">{{errMsg}}</div>
+    <form *ngIf="form&&config" [formGroup]="form" (ngSubmit)="getValues(form.value)">
+      <app-input-text [form]="form" [data]="config.title"
+                      [(value)]="config.title.value"></app-input-text>
+      <app-input-text [form]="form" [data]="config.subTitle"
+                      [(value)]="config.subTitle.value"></app-input-text>
+      <app-input-radio [form]="form" [data]="config.skipType"
+                       [(value)]="config.skipType.value" #type></app-input-radio>
+      <app-input-text [form]="form" [data]="config.linkUrl"
+                      [(value)]="config.linkUrl.value"
+                      *ngIf="type.value===0"
+      ></app-input-text>
+      <app-input-text [form]="form" [data]="config.skipId"
+                      [(value)]="config.skipId.value"
+                      *ngIf="type.value===1||type.value===2"
+      ></app-input-text>
+      <app-input-text [form]="form" [data]="config.ranking"
+                      [(value)]="config.ranking.value"></app-input-text>
+      <button mat-raised-button color="primary" [disabled]="!form.valid">保存</button>
+      <button mat-raised-button type="reset">重置</button>
+    </form>
+  </div>
+</app-container>

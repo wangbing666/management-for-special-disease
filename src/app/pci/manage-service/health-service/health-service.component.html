@@ -1,0 +1,20 @@
+<app-container [config]="containerConfig"  *ngIf="containerConfig">
+  <div class="addition">
+    <button mat-raised-button (click)="newData()">新增第三方服务</button>
+  </div>
+  <div class="content">
+    <div *ngIf="!healthServiceTable.lists&&healthServiceTable.loading">Loading...</div>
+    <div *ngIf="!healthServiceTable.lists&&!healthServiceTable.loading&&!!healthServiceTable.errorMessage" class="center">
+      {{healthServiceTable.errorMessage}}
+    </div>
+    <div *ngIf="healthServiceTable.lists">
+      <div class="content__table">
+        <app-lib-table
+          [table]="healthServiceTable"
+          (handleEmmit)="gotoHandle($event)"
+          (pageEmitter)="getHealthService($event)"
+        ></app-lib-table>
+      </div>
+    </div>
+  </div>
+</app-container>

@@ -1,0 +1,5 @@
+<div *ngIf="info">
+  <div *ngFor="let item of otherList">
+    <h4 class="inline">{{item.title}}：</h4>{{info[item.key]}}
+  </div>
+</div>

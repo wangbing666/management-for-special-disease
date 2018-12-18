@@ -1,0 +1,283 @@
+* {
+  padding: 0;
+  margin: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+a{
+  text-decoration: none;
+}
+ul{
+  padding:0;
+  margin: 0;
+  list-style:none;
+}
+
+body {
+  max-width: 435px;
+  min-width: 320px;
+  height: 100%;
+  margin: 0 auto;
+  padding-bottom: 35px;
+}
+
+.header {
+  pointer-events: none;
+}
+.client-header{
+  padding-bottom: 30px;
+}
+button:focus{
+  outline:none;
+}
+
+.header .bg {
+  width: 100%;
+  pointer-events: none;
+}
+
+.container {
+  padding: 0px 0 15px;
+  text-align: center;
+}
+
+.slogan {
+  font-size: 20px;
+  font-weight: 400;
+  color: #0CB7F4;
+  padding-bottom: 10px;
+}
+
+.logo {
+  width: 46%;
+}
+
+.dl-btn {
+  display: block;
+  width: 50%;
+  margin: 15px 25%;
+  padding: 8px 0;
+  text-align: center;
+  font-size: 14px;
+  color: #0CB7F4;
+  background: #FFF;
+  border: 1px #0CB7F4 solid;
+  border-radius: 50px;
+}
+
+.dl-btn > span {
+  font-size: 12px;
+}
+
+.dl-btn:focus,
+.dl-btn:active,
+.dl-btn:focus:active {
+  outline: none;
+}
+
+.footer p {
+  line-height: 1.5;
+  font-size: 12px;
+  text-align: center;
+  color: #0CB7F4;
+}
+
+.cover {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, .5) url(share.png) no-repeat top center;
+  background-size: 100%;
+}
+.invitation{
+  width: 85%;
+  margin: 0 auto;
+}
+.common{
+  margin-top: 20px;
+}
+.integral{
+  font-size: 14px;
+  font-weight: 400;
+  color: #0CB7F4;
+  padding-bottom: 10px;
+}
+.phone{
+  width: 100%;
+  display: inline-block;
+  margin: 0px auto;
+  height: 35px;
+  border: 1px solid #DCDCDC;
+  border-radius: 5px;
+  padding-left: 5px;
+}
+.yanzhengma{
+  height: 35px;
+  position: relative;
+}
+.verification{
+  width: 60%;
+  height: 35px;
+  position: absolute;
+  top: 0;
+  left:0;
+  border: 1px solid #DCDCDC;
+  border-radius: 5px;
+  padding-left: 5px;
+}
+.getVerification{
+  height: 35px;
+  width: 38%;
+  background: #fff;
+  position: absolute;
+  top:0;
+  right:0;
+  border: 1px solid #DCDCDC;
+  color: #35B2F2;
+  border-radius: 5px;
+}
+.download{
+  display: block;
+  width: 100%;
+  margin: 30px 0% 0;
+  padding: 8px 0;
+  text-align: center;
+  font-size: 18px;
+  color: #0CB7F4;
+  background: #FFF;
+  border: 1px #0CB7F4 solid;
+  border-radius: 50px;
+}
+.download span{
+  font-size: 14px;
+}
+.Validform_checkti{
+  display: none;
+  text-align: left;
+  font-size: 12px;
+}
+.Validform_right{
+      display: none !important;
+}
+.Validform_wrong{
+  color:red;
+  white-space:nowrap;
+}
+#Validform_checkti{
+  display: none;
+  color:red;
+  text-align: left;
+  font-size: 12px;
+}
+.weui-mask {
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+}
+.weui-dialog {
+    position: fixed;
+    z-index: 5000;
+    width: 80%;
+    max-width: 300px;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    background-color: #FFFFFF;
+    text-align: center;
+    border-radius: 3px;
+    overflow: hidden;
+}
+.weui-dialog__bd {
+    padding: 0.7em 20px 1.7em;
+    color: #353535;
+    min-height: 40px;
+    font-size: 15px;
+    line-height: 1.3;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+.weui-dialog__ft {
+    position: relative;
+    line-height: 48px;
+    font-size: 18px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+        border-top: 1px solid #D5D5D6;
+}
+.weui-dialog__btn_primary {
+    color: #0BB20C;
+}
+.weui-dialog__btn {
+    display: block;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+    color: #3CC51F;
+    text-decoration: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    position: relative;
+}
+.weui-dialog__hd {
+    padding: 1em 1.6em 0.5em;
+}
+.weui-dialog__title {
+    font-weight: 400;
+    font-size: 18px;
+}
+.weui-dialog__btn:active {
+    background-color: #EEEEEE;
+}
+.share{
+  font-size: 15px;
+  color: #666666;
+  padding-left:15px;
+}
+.invite{
+  font-size: 12px;
+  color: #3F3F3F;
+  line-height: 20px;
+  padding-left:15px;
+}
+.weui-mask_transparent {
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+}
+.weui-toast {
+    position: fixed;
+    z-index: 5000;
+    width: 250px;
+    top: 250px;
+    left: 50%;
+    margin-left: -125px;
+    background: rgba(17, 17, 17, 0.7);
+    text-align: center;
+    border-radius: 5px;
+    color: #FFFFFF;
+}
+.weui-toast__content {
+    margin: 10px 0 10px;
+}
+.skip{
+  margin-bottom: 10px;
+  text-align: right;
+  font-size: 12px;
+}
+.skip a{
+  color: #35B2F2;
+  text-decoration: underline;
+  padding-right: 15px;
+}

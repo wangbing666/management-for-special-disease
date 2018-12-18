@@ -1,0 +1,67 @@
+<app-container [config]="containerConfig" *ngIf="containerConfig">
+  <div class="content">
+    <div *ngIf="feedbackDetailList">
+      <div class="content__table">
+        <div class="table-container">
+          <table class="table table_header" *ngIf="feedbackDetailList">
+            <thead>
+            <tr>
+              <th>医生姓名</th>
+              <th>医生手机号</th>
+              <th>随访患者</th>
+              <th>患者手机号</th>
+              <th>随访创建时间</th>
+            </tr>
+            </thead>
+            <tbody *ngIf="feedbackDetailList">
+            <tr>
+              <td>
+                <div class="table__content">
+                  <span>{{data.doctorName}}</span>
+                </div>
+              </td>
+              <td>
+                <div class="table__content">
+                  <span>{{data.doctorTel}}</span>
+                </div>
+              </td>
+              <td>
+                <div class="table__content">
+                  <span>{{data.userName}}</span>
+                </div>
+              </td>
+              <td>
+                <div class="table__content">
+                  <span>{{data.userTel}}</span>
+                </div>
+              </td>
+              <td>
+                <div class="table__content">
+                  <span>{{data.planDate}}</span>
+                </div>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+          <table class="table" *ngIf="feedbackDetailList">
+            <thead>
+            <tr>
+              <th *ngFor="let title of feedbackDetailTable.titles">{{title.name}}</th>
+            </tr>
+            </thead>
+            <tbody *ngIf="feedbackDetailList">
+            <tr *ngFor="let list of feedbackDetailList; let i = index">
+              <td *ngFor="let title of feedbackDetailTable.titles" data-title="{{title.name}}">
+                <div [style.minWidth.px]="title.minwidth" [style.maxWidth.px]="title.maxwidth"
+                     class="table__content">
+                  <span>{{list[title.key] == 0 ? list[title.key] : list[title.key] || ''}}</span>
+                </div>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-container>

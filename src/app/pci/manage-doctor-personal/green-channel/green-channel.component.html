@@ -1,0 +1,84 @@
+<app-container [config]="containerConfig" *ngIf="containerConfig">
+  <div class="content">
+    <mat-tab-group dynamicHeight="true" [selectedIndex]="tab | async" (selectedIndexChange)="change($event)">
+      <mat-tab label="已同意">
+        <form style="padding: 16px">
+          <mat-form-field floatPlaceholder="always">
+            <input matInput type="text" placeholder="姓名/手机号搜索" name="queryKey" [(ngModel)]="agreeTable.queryKey">
+          </mat-form-field>
+          <button mat-icon-button color="primary" type="button" (click)="getAgreeGreenChannel(0)">
+            <mat-icon>search</mat-icon>
+          </button>
+          <button mat-icon-button color="primary" type="button" (click)="reset0()">
+            <mat-icon>autorenew</mat-icon>
+          </button>
+        </form>
+        <div *ngIf="!agreeTable.lists&&agreeTable.loading">Loading...</div>
+        <div *ngIf="!agreeTable.lists&&!agreeTable.loading&&!!agreeTable.errorMessage" class="center">
+          {{agreeTable.errorMessage}}
+        </div>
+        <div *ngIf="agreeTable.lists">
+          <div class="content__table">
+            <app-lib-table
+              [table]="agreeTable"
+              (handleEmmit)="gotoHandle($event)"
+              (pageEmitter)="getAgreeGreenChannel($event)"
+            ></app-lib-table>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="待处理">
+        <form style="padding: 16px">
+          <mat-form-field floatPlaceholder="always">
+            <input matInput type="text" placeholder="姓名/手机号搜索" name="queryKey" [(ngModel)]="pendingTable.queryKey">
+          </mat-form-field>
+          <button mat-icon-button color="primary" type="button" (click)="getPendingGreenChannel(0)">
+            <mat-icon>search</mat-icon>
+          </button>
+          <button mat-icon-button color="primary" type="button" (click)="reset1()">
+            <mat-icon>autorenew</mat-icon>
+          </button>
+        </form>
+        <div *ngIf="!pendingTable.lists&&pendingTable.loading">Loading...</div>
+        <div *ngIf="!pendingTable.lists&&!pendingTable.loading&&!!pendingTable.errorMessage" class="center">
+          {{pendingTable.errorMessage}}
+        </div>
+        <div *ngIf="pendingTable.lists">
+          <div class="content__table">
+            <app-lib-table
+              [table]="pendingTable"
+              (handleEmmit)="gotoHandle($event)"
+              (pageEmitter)="getPendingGreenChannel($event)"
+            ></app-lib-table>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="已拒绝">
+        <form style="padding: 16px">
+          <mat-form-field floatPlaceholder="always">
+            <input matInput type="text" placeholder="姓名/手机号搜索" name="queryKey" [(ngModel)]="rejectedTable.queryKey">
+          </mat-form-field>
+          <button mat-icon-button color="primary" type="button" (click)="getRejectedGreenChannel(0)">
+            <mat-icon>search</mat-icon>
+          </button>
+          <button mat-icon-button color="primary" type="button" (click)="reset2()">
+            <mat-icon>autorenew</mat-icon>
+          </button>
+        </form>
+        <div *ngIf="!rejectedTable.lists&&rejectedTable.loading">Loading...</div>
+        <div *ngIf="!rejectedTable.lists&&!rejectedTable.loading&&!!rejectedTable.errorMessage" class="center">
+          {{rejectedTable.errorMessage}}
+        </div>
+        <div *ngIf="rejectedTable.lists">
+          <div class="content__table">
+            <app-lib-table
+              [table]="rejectedTable"
+              (handleEmmit)="gotoHandle($event)"
+              (pageEmitter)="getRejectedGreenChannel($event)"
+            ></app-lib-table>
+          </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</app-container>

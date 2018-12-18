@@ -1,0 +1,94 @@
+.data-container {
+  position: relative;
+  padding: 30px 0;
+}
+
+.image-container {
+  padding-right: 30px;
+}
+
+.show-container {
+  position: relative;
+}
+
+.show-content {
+  padding-bottom: 30px;
+}
+
+.show-button {
+  text-align: right;
+}
+
+.show-image {
+  padding: 15px;
+}
+
+.show-image > img {
+  width: 100%;
+}
+
+ul,
+li {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+ul.data-list {
+  margin-bottom: 15px;
+  background-color: #fff;
+}
+
+ul.data-list > li {
+  padding: 10px 15px;
+  border: 1px solid rgba(34, 36, 38, .1);
+  border-top: none;
+}
+
+ul.data-list > li:first-child {
+  border-top: 1px solid rgba(34, 36, 38, .1) !important;
+}
+
+.inline {
+  display: inline-block;
+  padding-right: 5px;
+}
+
+.green {
+  color: green !important;
+}
+
+.red {
+  color: red !important;
+}
+
+.form-list {
+  padding-bottom: 30px;
+}
+
+.form-sub-list {
+  padding: 15px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+}
+
+.right-button {
+  text-align: right;
+}
+
+.form-content {
+  padding-bottom: 10px;
+}
+
+.header-data {
+  padding: 15px 0 10px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.header-margin {
+  margin-bottom: 20px;
+}
+
+.button-padding {
+  padding: 15px 0;
+}

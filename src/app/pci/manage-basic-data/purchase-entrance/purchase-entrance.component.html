@@ -1,0 +1,9 @@
+<app-container [config]="containerConfig"  *ngIf="containerConfig">
+  <div class="content">
+    <form *ngIf="form" [formGroup]="form" (ngSubmit)="getValues(form.value)">
+      <app-input-radio [form]="form" [data]="config.flag" [(value)]="config.flag.value"></app-input-radio>
+      <app-input-text [form]="form" [data]="config.url" [(value)]="config.url.value"></app-input-text>
+      <button mat-raised-button color="primary" [disabled]="!form.valid">保存</button>
+    </form>
+  </div>
+</app-container>

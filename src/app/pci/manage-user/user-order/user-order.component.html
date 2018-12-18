@@ -1,0 +1,235 @@
+<app-container [config]="containerConfig" *ngIf="containerConfig">
+  <div class="addition">
+    <button mat-raised-button disabled>退款中</button>
+    <div class="count await-refund">
+      <mat-chip color="accent" selected="true">{{count1}}</mat-chip>
+    </div>
+    <button mat-raised-button disabled>未处理第三方服务</button>
+    <div class="count untreated">
+      <mat-chip color="accent" selected="true">{{count2}}</mat-chip>
+    </div>
+  </div>
+  <div class="content">
+    <mat-tab-group dynamicHeight="true">
+      <mat-tab label="全部订单">
+        <form style="padding: 16px">
+          <mat-form-field floatPlaceholder="always">
+            <input matInput placeholder="手机号／姓名搜索" name="queryKey" [(ngModel)]="userOrderAllTable.queryKey">
+          </mat-form-field>
+          <button mat-icon-button color="primary" type="button" (click)="getUserOrdersAll(0)">
+            <mat-icon>search</mat-icon>
+          </button>
+          <button mat-icon-button color="primary" type="button" (click)="reset0()">
+            <mat-icon>autorenew</mat-icon>
+          </button>
+        </form>
+        <div *ngIf="!userOrderAllTable.lists&&userOrderAllTable.loading">Loading...</div>
+        <div *ngIf="!userOrderAllTable.lists&&!userOrderAllTable.loading&&!!userOrderAllTable.errorMessage"
+             class="center">
+          {{userOrderAllTable.errorMessage}}
+        </div>
+        <div *ngIf="userOrderAllTable.lists">
+          <div class="content__table">
+            <app-lib-table
+              [table]="userOrderAllTable"
+              (handleEmmit)="gotoHandle($event)"
+              (pageEmitter)="getUserOrdersAll($event)"
+            ></app-lib-table>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="待支付">
+        <form style="padding: 16px">
+          <mat-form-field floatPlaceholder="always">
+            <input matInput placeholder="手机号／姓名搜索" name="queryKey" [(ngModel)]="userOrderUnpayTable.queryKey">
+          </mat-form-field>
+          <button mat-icon-button color="primary" type="button" (click)="getUserOrdersUnpay(0)">
+            <mat-icon>search</mat-icon>
+          </button>
+          <button mat-icon-button color="primary" type="button" (click)="reset1()">
+            <mat-icon>autorenew</mat-icon>
+          </button>
+        </form>
+        <div *ngIf="!userOrderUnpayTable.lists&&userOrderUnpayTable.loading">Loading...</div>
+        <div *ngIf="!userOrderUnpayTable.lists&&!userOrderUnpayTable.loading&&!!userOrderUnpayTable.errorMessage"
+             class="center">
+          {{userOrderUnpayTable.errorMessage}}
+        </div>
+        <div *ngIf="userOrderUnpayTable.lists">
+          <div class="content__table">
+            <app-lib-table
+              [table]="userOrderUnpayTable"
+              (handleEmmit)="gotoHandle($event)"
+              (pageEmitter)="getUserOrdersUnpay($event)"
+            ></app-lib-table>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="申请中">
+        <form style="padding: 16px">
+          <mat-form-field floatPlaceholder="always">
+            <input matInput placeholder="手机号／姓名搜索" name="queryKey" [(ngModel)]="userOrderApplyTable.queryKey">
+          </mat-form-field>
+          <button mat-icon-button color="primary" type="button" (click)="getUserOrdersApply(0)">
+            <mat-icon>search</mat-icon>
+          </button>
+          <button mat-icon-button color="primary" type="button" (click)="reset2()">
+            <mat-icon>autorenew</mat-icon>
+          </button>
+        </form>
+        <div *ngIf="!userOrderApplyTable.lists&&userOrderApplyTable.loading">Loading...</div>
+        <div
+          *ngIf="!userOrderApplyTable.lists&&!userOrderApplyTable.loading&&!!userOrderApplyTable.errorMessage"
+          class="center">
+          {{userOrderApplyTable.errorMessage}}
+        </div>
+        <div *ngIf="userOrderApplyTable.lists">
+          <div class="content__table">
+            <app-lib-table
+              [table]="userOrderApplyTable"
+              (handleEmmit)="gotoHandle($event)"
+              (pageEmitter)="getUserOrdersApply($event)"
+            ></app-lib-table>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="退款中">
+        <form style="padding: 16px">
+          <mat-form-field floatPlaceholder="always">
+            <input matInput placeholder="手机号／姓名搜索" name="queryKey" [(ngModel)]="userOrderRefundingTable.queryKey">
+          </mat-form-field>
+          <button mat-icon-button color="primary" type="button" (click)="getUserOrdersRefunding(0)">
+            <mat-icon>search</mat-icon>
+          </button>
+          <button mat-icon-button color="primary" type="button" (click)="reset3()">
+            <mat-icon>autorenew</mat-icon>
+          </button>
+        </form>
+        <div *ngIf="!userOrderRefundingTable.lists&&userOrderRefundingTable.loading">Loading...</div>
+        <div
+          *ngIf="!userOrderRefundingTable.lists&&!userOrderRefundingTable.loading&&!!userOrderRefundingTable.errorMessage"
+          class="center">
+          {{userOrderRefundingTable.errorMessage}}
+        </div>
+        <div *ngIf="userOrderRefundingTable.lists">
+          <div class="content__table">
+            <app-lib-table
+              [table]="userOrderRefundingTable"
+              (handleEmmit)="gotoHandle($event)"
+              (pageEmitter)="getUserOrdersRefunding($event)"
+            ></app-lib-table>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="退款成功">
+        <form style="padding: 16px">
+          <mat-form-field floatPlaceholder="always">
+            <input matInput placeholder="手机号／姓名搜索" name="queryKey" [(ngModel)]="userOrderRefundTable.queryKey">
+          </mat-form-field>
+          <button mat-icon-button color="primary" type="button" (click)="getUserOrdersRefund(0)">
+            <mat-icon>search</mat-icon>
+          </button>
+          <button mat-icon-button color="primary" type="button" (click)="reset4()">
+            <mat-icon>autorenew</mat-icon>
+          </button>
+        </form>
+        <div *ngIf="!userOrderRefundTable.lists&&userOrderRefundTable.loading">Loading...</div>
+        <div *ngIf="!userOrderRefundTable.lists&&!userOrderRefundTable.loading&&!!userOrderRefundTable.errorMessage"
+             class="center">
+          {{userOrderRefundTable.errorMessage}}
+        </div>
+        <div *ngIf="userOrderRefundTable.lists">
+          <div class="content__table">
+            <app-lib-table
+              [table]="userOrderRefundTable"
+              (handleEmmit)="gotoHandle($event)"
+              (pageEmitter)="getUserOrdersRefund($event)"
+            ></app-lib-table>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="购买成功">
+        <form style="padding: 16px">
+          <mat-form-field floatPlaceholder="always">
+            <input matInput placeholder="手机号／姓名搜索" name="queryKey" [(ngModel)]="userOrderSuccessTable.queryKey">
+          </mat-form-field>
+          <button mat-icon-button color="primary" type="button" (click)="getUserOrdersSuccess(0)">
+            <mat-icon>search</mat-icon>
+          </button>
+          <button mat-icon-button color="primary" type="button" (click)="reset5()">
+            <mat-icon>autorenew</mat-icon>
+          </button>
+        </form>
+        <div *ngIf="!userOrderSuccessTable.lists&&userOrderSuccessTable.loading">Loading...</div>
+        <div *ngIf="!userOrderSuccessTable.lists&&!userOrderSuccessTable.loading&&!!userOrderSuccessTable.errorMessage"
+             class="center">
+          {{userOrderSuccessTable.errorMessage}}
+        </div>
+        <div *ngIf="userOrderSuccessTable.lists">
+          <div class="content__table">
+            <app-lib-table
+              [table]="userOrderSuccessTable"
+              (handleEmmit)="gotoHandle($event)"
+              (pageEmitter)="getUserOrdersSuccess($event)"
+            ></app-lib-table>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="已取消">
+        <form style="padding: 16px">
+          <mat-form-field floatPlaceholder="always">
+            <input matInput placeholder="手机号／姓名搜索" name="queryKey" [(ngModel)]="userOrderCancelTable.queryKey">
+          </mat-form-field>
+          <button mat-icon-button color="primary" type="button" (click)="getUserOrdersCancel(0)">
+            <mat-icon>search</mat-icon>
+          </button>
+          <button mat-icon-button color="primary" type="button" (click)="reset6()">
+            <mat-icon>autorenew</mat-icon>
+          </button>
+        </form>
+        <div *ngIf="!userOrderCancelTable.lists&&userOrderCancelTable.loading">Loading...</div>
+        <div
+          *ngIf="!userOrderCancelTable.lists&&!userOrderCancelTable.loading&&!!userOrderCancelTable.errorMessage"
+          class="center">
+          {{userOrderCancelTable.errorMessage}}
+        </div>
+        <div *ngIf="userOrderCancelTable.lists">
+          <div class="content__table">
+            <app-lib-table
+              [table]="userOrderCancelTable"
+              (handleEmmit)="gotoHandle($event)"
+              (pageEmitter)="getUserOrdersCancel($event)"
+            ></app-lib-table>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="未处理第三方服务">
+        <form style="padding: 16px">
+          <mat-form-field floatPlaceholder="always">
+            <input matInput placeholder="手机号／姓名搜索" name="queryKey" [(ngModel)]="userOrderThirdTable.queryKey">
+          </mat-form-field>
+          <button mat-icon-button color="primary" type="button" (click)="getUserOrdersThird(0)">
+            <mat-icon>search</mat-icon>
+          </button>
+          <button mat-icon-button color="primary" type="button" (click)="reset7()">
+            <mat-icon>autorenew</mat-icon>
+          </button>
+        </form>
+        <div *ngIf="!userOrderThirdTable.lists&&userOrderThirdTable.loading">Loading...</div>
+        <div *ngIf="!userOrderThirdTable.lists&&!userOrderThirdTable.loading&&!!userOrderThirdTable.errorMessage"
+             class="center">
+          {{userOrderThirdTable.errorMessage}}
+        </div>
+        <div *ngIf="userOrderThirdTable.lists">
+          <div class="content__table">
+            <app-lib-table
+              [table]="userOrderThirdTable"
+              (handleEmmit)="gotoHandle($event)"
+              (pageEmitter)="getUserOrdersThird($event)"
+            ></app-lib-table>
+          </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</app-container>

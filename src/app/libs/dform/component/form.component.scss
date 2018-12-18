@@ -1,0 +1,103 @@
+@import '../../theme/theme';
+
+.lib-form {
+  padding-bottom: 5px;
+}
+
+.lib-form__content {
+  padding-bottom: 1em;
+}
+
+.lib-form-set {
+  position: relative;
+}
+
+.lib-form-set__label {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 200px;
+  font-size: 16px;
+}
+
+.lib-form-set__label-valid {
+  color: $color-danger;
+}
+
+.lib-form-set__container {
+  padding: 5px 0 30px 215px;
+}
+
+.lib-form-set__input,
+.lib-form-set__select {
+  width: 100%;
+}
+
+.lib-form-set__select {
+  margin: 1em 0;
+}
+
+.lib-form-set__checkbox,
+.lib-form-set__radio {
+  margin-right: 1em;
+}
+
+.lib-form-set__upload {
+  width: 100%;
+  padding: 15px 0;
+  margin-bottom: 30px;
+}
+
+.lib-form-set__upload img {
+  width: 100px;
+  height: 100px;
+}
+
+.lib-form-set__upload img:before,
+.lib-form-set__upload img:after {
+  clear: both;
+}
+
+.clear:before,
+.clear:after {
+  content: " ";
+  clear: both;
+}
+
+.custom-input {
+  width: 100%;
+}
+
+.custom-input input {
+  width: 100%;
+  font-size: 1em;
+  padding: .2em 0;
+  border: none;
+  border-bottom: 1px solid $color-border-dark;
+}
+
+.custom-input input:focus {
+  border-width: 2px;
+  border-style: solid;
+  border-color: $color-primary;
+}
+
+::-webkit-input-placeholder {
+  /* WebKit browsers */
+  font-weight: 200;
+}
+
+:-moz-placeholder {
+  /* Mozilla Firefox 4 to 18 */
+  font-weight: 200;
+}
+
+::-moz-placeholder {
+  /* Mozilla Firefox 19+ */
+  font-weight: 200;
+}
+
+:-ms-input-placeholder {
+  /* Internet Explorer 10+ */
+  font-weight: 200;
+}

@@ -1,0 +1,48 @@
+<h1 mat-dialog-title>记录数据编辑</h1>
+<div mat-dialog-content style="width: 700px;">
+  <div *ngIf="option">
+    <form *ngIf="form" [formGroup]="form" (ngSubmit)="dialogRef.close(form.value)">
+      <div class="input_container">
+        <mat-radio-group class="input_content"
+                        style="border: none"
+                        formControlName="doubleUpper"
+                        [(ngModel)]="config.doubleUpper.value"
+                        (change)="change($event)">
+          <mat-radio-button class="check_content"
+                           *ngFor="let opt of config.doubleUpper.options"
+                           [value]="opt.id"
+          >{{opt.name}}
+          </mat-radio-button>
+        </mat-radio-group>
+        <span class="input_span">{{data.label}}</span>
+      </div>
+      <div class="integral" *ngIf="integral">
+        <mat-form-field class="example-full-width"  style="width: 100%;">
+          <input matInput [placeholder]="config.toplimit.label"  formControlName="toplimit" [(ngModel)]="config.toplimit.value" type="number">
+        </mat-form-field>
+      </div>
+      <div class="integral">
+        <mat-form-field class="example-full-width"  style="width: 100%;">
+          <input matInput [placeholder]="config.integral.label"  formControlName="integral" [(ngModel)]="config.integral.value" type="number">
+        </mat-form-field>
+      </div>
+      <div class="integral">
+        <mat-select [placeholder]="config.status.label" formControlName="status" [(ngModel)]="config.status.value" style="width: 100%;">
+          <mat-option *ngFor="let opt of config.status.options" [value]="opt.id">
+            {{ opt.name }}
+          </mat-option>
+        </mat-select>
+      </div>
+      <div class="integral">
+        <input  type="hidden" formControlName="tag" [(ngModel)]="config.tag.value">
+      </div>
+      <div class="integral">
+        <button mat-raised-button color="primary" [disabled]="!form.valid">保存</button>
+        <button mat-raised-button type="reset">重置</button>
+      </div>
+    </form>
+    <div *ngIf="errMsg">{{errMsg}}</div>
+  </div>
+</div>
+
+

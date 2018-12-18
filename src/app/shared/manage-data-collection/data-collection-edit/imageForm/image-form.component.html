@@ -1,0 +1,51 @@
+<div class="form-content">
+  <mat-form-field floatPlaceholder="always" style="width: 100%">
+    <input matInput placeholder="检查名称" name="name"
+           (blur)="saveAsDraft()" (change)="saveAsDraft()"
+           [(ngModel)]="info.name" required>
+  </mat-form-field>
+</div>
+<div class="form-content">
+  <mat-form-field floatPlaceholder="always" style="width: 100%">
+    <input matInput [matDatepicker]="time" placeholder="报告日期" name="time"
+           (dateInput)="saveAsDraft('time')" (dateChange)="saveAsDraft('time')"
+           [(ngModel)]="info.time" required>
+    <mat-datepicker-toggle matSuffix [for]="time"></mat-datepicker-toggle>
+    <mat-datepicker #time></mat-datepicker>
+  </mat-form-field>
+</div>
+<div class="form-content">
+  <mat-form-field floatPlaceholder="always" style="width: 100%">
+    <input matInput placeholder="报告单号" name="orderNo"
+           (blur)="saveAsDraft()" (change)="saveAsDraft()"
+           [(ngModel)]="info.orderNo" required>
+  </mat-form-field>
+</div>
+<div class="form-content">
+  <mat-form-field floatPlaceholder="always" style="width: 100%">
+    <input matInput placeholder="临床诊断" name="clinicalDiagnosis"
+           (blur)="saveAsDraft()" (change)="saveAsDraft()"
+           [(ngModel)]="info.clinicalDiagnosis" required>
+  </mat-form-field>
+</div>
+<div class="form-content">
+  <mat-form-field floatPlaceholder="always" style="width: 100%">
+    <input matInput placeholder="检查技术" name="technique"
+           (blur)="saveAsDraft()" (change)="saveAsDraft()"
+           [(ngModel)]="info.technique">
+  </mat-form-field>
+</div>
+<div class="form-content">
+  <mat-form-field floatPlaceholder="always" style="width: 100%">
+    <textarea matInput placeholder="影像描述" name="description" rows="15"
+              (blur)="saveAsDraft()" (change)="saveAsDraft()"
+              [(ngModel)]="info.description"></textarea>
+  </mat-form-field>
+</div>
+<div class="form-content">
+  <mat-form-field floatPlaceholder="always" style="width: 100%">
+    <textarea matInput placeholder="诊断描述" name="suggestion" rows="15"
+              (blur)="saveAsDraft()" (change)="saveAsDraft()"
+              [(ngModel)]="info.suggestion"></textarea>
+  </mat-form-field>
+</div>

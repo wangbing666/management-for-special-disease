@@ -1,0 +1,23 @@
+<app-container [config]="containerConfig" *ngIf="containerConfig">
+  <div class="addition">
+    <button mat-raised-button (click)="newData()">新增商品</button>
+  </div>
+  <div class="content">
+        <div *ngIf="!integralCommodityTable.lists&&integralCommodityTable.loading">Loading...</div>
+        <div
+          *ngIf="!integralCommodityTable.lists&&!integralCommodityTable.loading&&!!integralCommodityTable.errorMessage"
+          class="center">
+          {{integralCommodityTable.errorMessage}}
+        </div>
+        <div *ngIf="integralCommodityTable.lists">
+          <div class="content__table">
+            <app-lib-table
+              [table]="integralCommodityTable"
+              (handleEmmit)="gotoHandle($event)"
+              (pageEmitter)="getIntegralCommodity($event)"
+            ></app-lib-table>
+          </div>
+        </div>
+  </div>
+</app-container>
+

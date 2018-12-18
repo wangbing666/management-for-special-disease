@@ -1,0 +1,17 @@
+<app-container [config]="containerConfig" *ngIf="containerConfig">
+  <div class="content">
+    <div *ngIf="!receiveFlowersTable.lists&&receiveFlowersTable.loading">Loading...</div>
+    <div *ngIf="!receiveFlowersTable.lists&&!receiveFlowersTable.loading&&!!receiveFlowersTable.errorMessage"
+         class="center">
+      {{receiveFlowersTable.errorMessage}}
+    </div>
+    <div *ngIf="receiveFlowersTable.lists">
+      <div class="content__table">
+        <app-lib-table
+          [table]="receiveFlowersTable"
+          (pageEmitter)="getReceiveFlowers(id, $event)"
+        ></app-lib-table>
+      </div>
+    </div>
+  </div>
+</app-container>

@@ -1,0 +1,54 @@
+<mat-toolbar color="primary" class="app-toolbar">
+  <button mat-icon-button (click)="sidenav.toggle()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <h1>心血管家后台管理系统</h1>
+  <span class="toolbar__spacer"></span>
+  <span class="toolbar__info">你好，{{username | async}} ！</span>
+  <button mat-mini-fab (click)="logout()">退出</button>
+</mat-toolbar>
+<mat-sidenav-container class="app-container">
+  <mat-sidenav #sidenav mode="side" opened="true" class="app-nav">
+    <nav id="container" class="nav__container">
+      <ul class="nav__list" *ngIf="sidebars">
+        <li *ngFor="let sidebar of sidebars | async">
+          <div class="nav__item" [class.open]="sidebar.open">
+            <div class="nav__title">
+              <a *ngIf="!sidebar.ifSub"
+                 routerLinkActive="active"
+                 [routerLink]="[sidebar.link]"
+              >
+                {{sidebar.title}}
+              </a>
+              <span *ngIf="sidebar.ifSub" (click)="toggleSub(sidebar)">
+                {{sidebar.title}}
+                <mat-icon>chevron_right</mat-icon>
+              </span>
+              <mat-chip-list *ngIf="sidebar.tag">
+                <mat-chip color="accent" selected="true"></mat-chip>
+              </mat-chip-list>
+            </div>
+          </div>
+          <ul class="nav-sub__list" *ngIf="sidebar.ifSub">
+            <li class="nav-sub__item" *ngFor="let subSidebar of sidebar?.subBars">
+              <div class="nav-sub__title">
+                <a
+                  routerLinkActive="active"
+                  [routerLink]="[subSidebar.link]"
+                >
+                  {{subSidebar.title}}
+                </a>
+                <mat-chip-list *ngIf="subSidebar.tag">
+                  <mat-chip color="accent" selected="true">{{subSidebar.tag}}</mat-chip>
+                </mat-chip-list>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  </mat-sidenav>
+  <div class="app-main">
+    <ng-content></ng-content>
+  </div>
+</mat-sidenav-container>

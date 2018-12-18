@@ -1,0 +1,8 @@
+<div class="input_container" style="display: inline-block;width: 250px;">
+  <input class="input_content"
+         [placeholder]="label"
+         [(ngModel)]="value"
+         (change)="change()" #date
+  >
+  <span class="input_span">{{label}}</span>
+</div>

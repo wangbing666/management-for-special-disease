@@ -1,0 +1,44 @@
+<app-container [config]="containerConfig" *ngIf="containerConfig">
+  <div class="content">
+    <mat-tab-group dynamicHeight="true" [selectedIndex]="tab | async" (selectedIndexChange)="change($event)">
+      <mat-tab label="待处理">
+        <div *ngIf="!integralOrderTable.lists&&integralOrderTable.loading">Loading...</div>
+        <div
+          *ngIf="!integralOrderTable.lists&&!integralOrderTable.loading&&!!integralOrderTable.errorMessage"
+          class="center">
+          {{integralOrderTable.errorMessage}}
+        </div>
+        <div *ngIf="integralOrderTable.lists">
+          <div class="content__table">
+            <app-lib-table
+              [table]="integralOrderTable"
+              (handleEmmit)="gotoHandle($event)"
+              (pageEmitter)="getIntegralOrder($event)"
+            ></app-lib-table>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="已处理">
+        <div *ngIf="!integralOrderedTable.lists&&integralOrderedTable.loading">Loading...</div>
+        <div
+          *ngIf="!integralOrderedTable.lists&&!integralOrderedTable.loading&&!!integralOrderedTable.errorMessage"
+          class="center">
+          {{integralOrderedTable.errorMessage}}
+        </div>
+        <div *ngIf="integralOrderedTable.lists">
+          <div class="content__table">
+            <app-lib-table
+              [table]="integralOrderedTable"
+              (handleEmmit)="gotoHandle($event)"
+              (pageEmitter)="getIntegralOrdered($event)"
+            ></app-lib-table>
+          </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+    <div class="count" *ngIf="count">
+      <mat-chip color="accent" selected="true">{{count}}</mat-chip>
+    </div>
+  </div>
+</app-container>
+

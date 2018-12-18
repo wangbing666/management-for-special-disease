@@ -1,0 +1,22 @@
+.image-container {
+  position: fixed;
+  width: calc(50vw - 162px);
+  max-width: calc(100vh - 190px);
+  right: 16px;
+  bottom: 0;
+  background: #fff;
+}
+
+.image-content {
+  position: relative;
+  width: 100%;
+  height: calc(50vw - 162px);
+  max-height: calc(100vh - 190px);
+  overflow: scroll;
+  border: 10px solid #fff;
+}
+
+.image-content img {
+  display: block;
+  cursor: pointer;
+}

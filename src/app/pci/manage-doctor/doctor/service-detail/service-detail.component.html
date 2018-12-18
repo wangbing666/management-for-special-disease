@@ -1,0 +1,17 @@
+<app-container [config]="containerConfig" *ngIf="containerConfig">
+  <div class="content">
+    <div *ngIf="!serviceDetail.lists&&serviceDetail.loading">Loading...</div>
+    <div *ngIf="!serviceDetail.lists&&!serviceDetail.loading&&!!serviceDetail.errorMessage"
+         class="center">
+      {{serviceDetail.errorMessage}}
+    </div>
+    <div *ngIf="serviceDetail.lists">
+      <div class="content__table">
+        <app-lib-table
+          [table]="serviceDetail"
+          (pageEmitter)="getList(id, $event)"
+        ></app-lib-table>
+      </div>
+    </div>
+  </div>
+</app-container>

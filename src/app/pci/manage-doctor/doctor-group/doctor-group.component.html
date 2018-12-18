@@ -1,0 +1,40 @@
+<app-container [config]="containerConfig" *ngIf="containerConfig">
+  <div class="content">
+    <mat-tab-group dynamicHeight="true" [selectedIndex]="tab | async" (selectedIndexChange)="change($event)">
+      <mat-tab label="全部医生小组">
+        <div *ngIf="!doctorGroupTable.lists&&doctorGroupTable.loading">Loading...</div>
+        <div *ngIf="!doctorGroupTable.lists&&!doctorGroupTable.loading&&!!doctorGroupTable.errorMessage" class="center">
+          {{doctorGroupTable.errorMessage}}
+        </div>
+        <div *ngIf="doctorGroupTable.lists">
+          <div class="content__table">
+            <app-lib-table
+              [table]="doctorGroupTable"
+              (handleEmmit)="gotoHandle($event)"
+              (pageEmitter)="getDoctorGroups($event)"
+            ></app-lib-table>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="待审核服务说明">
+        <div *ngIf="!auditingServiceTable.lists&&auditingServiceTable.loading">Loading...</div>
+        <div *ngIf="!auditingServiceTable.lists&&!auditingServiceTable.loading&&!!auditingServiceTable.errorMessage"
+             class="center">
+          {{auditingServiceTable.errorMessage}}
+        </div>
+        <div *ngIf="auditingServiceTable.lists">
+          <div class="content__table">
+            <app-lib-table
+              [table]="auditingServiceTable"
+              (handleEmmit)="gotoHandle($event)"
+              (pageEmitter)="getAuditingServices($event)"
+            ></app-lib-table>
+          </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+    <div class="count" *ngIf="count">
+      <mat-chip color="accent" selected="true">{{count}}</mat-chip>
+    </div>
+  </div>
+</app-container>

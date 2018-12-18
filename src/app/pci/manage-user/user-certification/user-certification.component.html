@@ -1,0 +1,114 @@
+<app-container [config]="containerConfig"  *ngIf="containerConfig">
+  <div class="content">
+    <mat-tab-group dynamicHeight="true" [selectedIndex]="tab | async" (selectedIndexChange)="change($event)">
+      <mat-tab label="已认证">
+        <form style="padding: 16px">
+          <mat-form-field floatPlaceholder="always">
+            <input matInput type="text" placeholder="输入姓名/手机号" name="queryKey" [(ngModel)]="userCertificationTable.queryKey">
+          </mat-form-field>
+          <button mat-icon-button color="primary" type="button" (click)="getUserCertifications(0)">
+            <mat-icon>search</mat-icon>
+          </button>
+          <button mat-icon-button color="primary" type="button" (click)="reset0()">
+            <mat-icon>autorenew</mat-icon>
+          </button>
+        </form>
+        <div *ngIf="!userCertificationTable.lists&&userCertificationTable.loading">Loading...</div>
+        <div *ngIf="!userCertificationTable.lists&&!userCertificationTable.loading&&!!userCertificationTable.errorMessage" class="center">
+          {{userCertificationTable.errorMessage}}
+        </div>
+        <div *ngIf="userCertificationTable.lists">
+          <div class="content__table">
+            <app-lib-table
+              [table]="userCertificationTable"
+              (handleEmmit)="gotoHandle($event)"
+              (pageEmitter)="getUserCertifications($event)"
+            ></app-lib-table>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="未认证">
+        <form style="padding: 16px">
+          <mat-form-field floatPlaceholder="always">
+            <input matInput type="text" placeholder="输入姓名/手机号" name="queryKey" [(ngModel)]="userUnCertificationTable.queryKey">
+          </mat-form-field>
+          <button mat-icon-button color="primary" type="button" (click)="getUserUncertifications(0)">
+            <mat-icon>search</mat-icon>
+          </button>
+          <button mat-icon-button color="primary" type="button" (click)="reset1()">
+            <mat-icon>autorenew</mat-icon>
+          </button>
+        </form>
+        <div *ngIf="!userUnCertificationTable.lists&&userUnCertificationTable.loading">Loading...</div>
+        <div *ngIf="!userUnCertificationTable.lists&&!userUnCertificationTable.loading&&!!userUnCertificationTable.errorMessage" class="center">
+          {{userUnCertificationTable.errorMessage}}
+        </div>
+        <div *ngIf="userUnCertificationTable.lists">
+          <div class="content__table">
+            <app-lib-table
+              [table]="userUnCertificationTable"
+              (handleEmmit)="gotoHandle($event)"
+              (pageEmitter)="getUserUncertifications($event)"
+            ></app-lib-table>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="申请中">
+        <form style="padding: 16px">
+          <mat-form-field floatPlaceholder="always">
+            <input matInput type="text" placeholder="输入姓名/手机号" name="queryKey" [(ngModel)]="userCertificatingTable.queryKey">
+          </mat-form-field>
+          <button mat-icon-button color="primary" type="button" (click)="getUserCertificatings(0)">
+            <mat-icon>search</mat-icon>
+          </button>
+          <button mat-icon-button color="primary" type="button" (click)="reset2()">
+            <mat-icon>autorenew</mat-icon>
+          </button>
+        </form>
+        <div *ngIf="!userCertificatingTable.lists&&userCertificatingTable.loading">Loading...</div>
+        <div *ngIf="!userCertificatingTable.lists&&!userCertificatingTable.loading&&!!userCertificatingTable.errorMessage" class="center">
+          {{userCertificatingTable.errorMessage}}
+        </div>
+        <div *ngIf="userCertificatingTable.lists">
+          <div class="content__table">
+            <app-lib-table
+              [table]="userCertificatingTable"
+              (handleEmmit)="gotoHandle($event)"
+              (pageEmitter)="getUserCertificatings($event)"
+            ></app-lib-table>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="申请失败">
+        <form style="padding: 16px">
+          <mat-form-field floatPlaceholder="always">
+            <input matInput type="text" placeholder="输入姓名/手机号" name="queryKey" [(ngModel)]="userCertificationFailureTable.queryKey">
+          </mat-form-field>
+          <button mat-icon-button color="primary" type="button" (click)="getUserCertificationFailures(0)">
+            <mat-icon>search</mat-icon>
+          </button>
+          <button mat-icon-button color="primary" type="button" (click)="reset3()">
+            <mat-icon>autorenew</mat-icon>
+          </button>
+        </form>
+        <div *ngIf="!userCertificationFailureTable.lists&&userCertificationFailureTable.loading">Loading...</div>
+        <div *ngIf="!userCertificationFailureTable.lists&&!userCertificationFailureTable.loading&&!!userCertificationFailureTable.errorMessage" class="center">
+          {{userCertificationFailureTable.errorMessage}}
+        </div>
+        <div *ngIf="userCertificationFailureTable.lists">
+          <div class="content__table">
+            <app-lib-table
+              [table]="userCertificationFailureTable"
+              (handleEmmit)="gotoHandle($event)"
+              (pageEmitter)="getUserCertificationFailures($event)"
+            ></app-lib-table>
+          </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+    <div class="count">
+      <mat-chip color="accent" selected="true">{{count}}</mat-chip>
+    </div>
+  </div>
+</app-container>
+

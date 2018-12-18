@@ -1,0 +1,53 @@
+@import '../../../../libs/theme/theme';
+
+.grid {
+  height: calc(100vh - 171px);
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.list {
+  padding-bottom: 1em;
+}
+
+.list_item {
+  border-bottom: 1px solid $border-color;
+  img {
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+  }
+  span {
+    line-height: 48px;
+    padding-left: 1em;
+  }
+}
+
+.list_item:hover,
+.list_item.active {
+  background: $primary-color;
+  color: $white;
+}
+
+.list_select {
+  position: relative;
+  border-bottom: 1px solid $border-color;
+  img {
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+  }
+  span {
+    line-height: 48px;
+    padding-left: 1em;
+  }
+  .close {
+    position: absolute;
+    top: 11px;
+    right: 16px;
+  }
+}

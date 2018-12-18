@@ -1,0 +1,19 @@
+<app-container [config]="containerConfig"  *ngIf="containerConfig">
+  <div class="addition">
+    <button mat-raised-button (click)="newData()">新增渠道</button>
+  </div>
+  <div class="content">
+    <div *ngIf="!downloadOriginTable.lists&&downloadOriginTable.loading">Loading...</div>
+    <div *ngIf="!downloadOriginTable.lists&&!downloadOriginTable.loading&&!!downloadOriginTable.errorMessage" class="center">
+      {{downloadOriginTable.errorMessage}}
+    </div>
+    <div *ngIf="downloadOriginTable.lists">
+      <div class="content__table">
+        <app-lib-table
+          [table]="downloadOriginTable"
+          (handleEmmit)="gotoHandle($event)"
+        ></app-lib-table>
+      </div>
+    </div>
+  </div>
+</app-container>

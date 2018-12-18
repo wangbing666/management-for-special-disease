@@ -1,0 +1,11 @@
+<app-container [config]="containerConfig" *ngIf="containerConfig">
+  <div class="content">
+    <form *ngIf="form&&config" [formGroup]="form" (ngSubmit)="getValues(form.value)">
+      <app-input-dropdown [form]="form" [data]="config.expressId" [(value)]="config.expressId.value" (valueChange)="expressChange()"></app-input-dropdown>
+      <app-input-text [form]="form" [data]="config.trackingNum" [(value)]="config.trackingNum.value" (valueChange)="setMsg()"></app-input-text>
+      <app-input-textarea *ngIf="editkey"  [form]="form" [data]="config.message" [(value)]="config.message.value" readonly></app-input-textarea>
+      <button mat-raised-button color="primary">保存</button>
+      <button mat-raised-button type="reset">重置</button>
+    </form>
+  </div>
+</app-container>

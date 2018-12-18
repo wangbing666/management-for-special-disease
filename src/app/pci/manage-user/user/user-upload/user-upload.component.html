@@ -1,0 +1,12 @@
+<app-container [config]="containerConfig" *ngIf="containerConfig">
+  <div class="content">
+    <form *ngIf="form" [formGroup]="form" (ngSubmit)="getValues(form.value)">
+      <app-input-text [form]="form" [data]="config.userId" [(value)]="config.userId.value"></app-input-text>
+      <app-input-date [form]="form" [data]="config.checkDate" [(value)]="config.checkDate.value"></app-input-date>
+      <app-input-file [form]="form" [data]="config.imgUrlList" [(value)]="config.imgUrlList.value"></app-input-file>
+      <button mat-raised-button color="primary" [disabled]="!form.valid || disabled">保存</button>
+      <button mat-raised-button type="reset">重置</button>
+    </form>
+    <div *ngIf="errMsg">{{errMsg}}</div>
+  </div>
+</app-container>

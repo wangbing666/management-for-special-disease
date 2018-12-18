@@ -1,0 +1,147 @@
+@import '../../../../libs/theme/theme';
+
+:host:before,
+:host:after {
+  display: table;
+  content: '';
+  clear: both;
+}
+
+.table-container {
+  width: 100%;
+  margin-bottom: 16px;
+  overflow-x: scroll;
+}
+
+.table {
+  width: 100%;
+  margin: 16px 0;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.table_header{
+  width: 90%;
+  margin: 0 auto;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.table > tbody > tr {
+  line-height: 1.5em;
+}
+
+.table > tbody > tr:hover {
+  border-left: 4px solid $primary-color;
+}
+
+.table > thead > tr > th {
+  padding: 16px;
+  font-size: 14px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.table > tbody > tr > td {
+  min-height: 45px;
+  padding: 5px;
+  border-top: 1px solid $border-color;
+  word-wrap: break-word;
+  word-break: break-all;
+  color: $text-color-secondary;
+  text-align: center;
+}
+
+.table__image {
+  width: 35px;
+  height: 35px;
+  overflow: hidden;
+  border-radius: 20px;
+  margin: 0 auto;
+}
+
+.table__image img {
+  width: 100%;
+  height: 100%;
+}
+
+.table__content {
+  margin: 0 auto;
+}
+
+.table__option {
+  color: $primary-color;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.table__option:hover {
+  color: $primary-color-dark;
+}
+
+@media (max-width: 800px) {
+  .table,
+  .table > thead,
+  .table > thead > tr,
+  .table > thead > tr > th,
+  .table > tbody,
+  .table > tbody > tr,
+  .table > tbody > tr > td {
+    display: block;
+  }
+  .table > thead > tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+  .table > tbody {
+    border-top: 1px solid $border-color;
+  }
+  .table > tbody > tr {
+    border: 1px solid $border-color;
+  }
+  .table > tbody > tr > td {
+    position: relative;
+    padding-left: 50%;
+    white-space: normal;
+    text-align: left;
+  }
+  .table > tbody > tr > td:before {
+    content: attr(title);
+    position: absolute;
+    left: 6px;
+    width: 45%;
+    white-space: nowrap;
+    text-align: left;
+    font-weight: 700;
+  }
+  .table__image,
+  .table__content {
+    margin: 0;
+  }
+}
+
+.page__items {
+  display: flex;
+  float: right;
+}
+
+.page__items > .item {
+  width: 24px;
+  height: 24px;
+  line-height: 24px;
+  margin: 0 4px;
+  color: $text-color-third;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.page__items > .item:hover {
+  color: $primary-color;
+  background-color: $primary-color-light !important;
+}
+
+.page__items > .item.active {
+  color: $primary-color !important;
+  text-decoration: underline !important;
+}

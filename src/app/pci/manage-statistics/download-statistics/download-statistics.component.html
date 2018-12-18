@@ -1,0 +1,63 @@
+<app-container [config]="containerConfig" *ngIf="containerConfig">
+  <div class="content">
+    <mat-tab-group dynamicHeight="true">
+      <mat-tab label="全部来源统计">
+        <form style="padding: 16px">
+          <app-search [type]="'1'" [label]="'请选择日期'" [(value)]="queryMainDate"></app-search>
+          <button mat-icon-button color="primary" type="button" (click)="getMainQueryResult()">
+            <mat-icon>search</mat-icon>
+          </button>
+        </form>
+        <div *ngIf="!mainTable.lists&&mainTable.loading">Loading...</div>
+        <div *ngIf="!mainTable.lists&&!mainTable.loading&&!!mainTable.errorMessage" class="center">
+          {{mainTable.errorMessage}}
+        </div>
+        <div *ngIf="mainTable.lists">
+          <div class="content__table">
+            <app-lib-table
+              [table]="mainTable"
+            ></app-lib-table>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="用户渠道来源统计">
+        <form style="padding: 16px">
+          <app-search [type]="'1'" [label]="'请选择日期'" [(value)]="queryUserDate"></app-search>
+          <button mat-icon-button color="primary" type="button" (click)="getUserQueryResult()">
+            <mat-icon>search</mat-icon>
+          </button>
+        </form>
+        <div *ngIf="!userTable.lists&&userTable.loading">Loading...</div>
+        <div *ngIf="!userTable.lists&&!userTable.loading&&!!userTable.errorMessage" class="center">
+          {{userTable.errorMessage}}
+        </div>
+        <div *ngIf="userTable.lists">
+          <div class="content__table">
+            <app-lib-table
+              [table]="userTable"
+            ></app-lib-table>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="医生渠道来源统计">
+        <form style="padding: 16px">
+          <app-search [type]="'1'" [label]="'请选择日期'" [(value)]="queryDoctorDate"></app-search>
+          <button mat-icon-button color="primary" type="button" (click)="getDoctorQueryResult()">
+            <mat-icon>search</mat-icon>
+          </button>
+        </form>
+        <div *ngIf="!doctorTable.lists&&doctorTable.loading">Loading...</div>
+        <div *ngIf="!doctorTable.lists&&!doctorTable.loading&&!!doctorTable.errorMessage" class="center">
+          {{doctorTable.errorMessage}}
+        </div>
+        <div *ngIf="doctorTable.lists">
+          <div class="content__table">
+            <app-lib-table
+              [table]="doctorTable"
+            ></app-lib-table>
+          </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</app-container>

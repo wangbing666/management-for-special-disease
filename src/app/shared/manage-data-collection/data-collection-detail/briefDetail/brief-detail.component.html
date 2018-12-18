@@ -1,0 +1,52 @@
+<div *ngIf="info">
+  <h3>基本信息</h3>
+  <ul class="data-list">
+    <li *ngFor="let item of basicList">
+      <h4 class="inline">{{item.title}}：</h4>{{info[item.key]}}
+    </li>
+  </ul>
+  <h3>入院时简要病史</h3>
+  <ul class="data-list">
+    <li *ngFor="let item of brifeList">
+      <h4 class="inline">{{item.title}}：</h4>{{info[item.key]}}
+    </li>
+  </ul>
+  <h3>体检摘要</h3>
+  <ul class="data-list">
+    <li *ngFor="let item of physicalList">
+      <h4 class="inline">{{item.title}}：</h4> {{info[item.key]}}
+      <span *ngIf="item.key == 'physicalTemperature'">°C</span>
+      <span *ngIf="item.key == 'physicalPulse'">次/分</span>
+      <span *ngIf="item.key == 'physicalRespiration'">次/分</span>
+    </li>
+  </ul>
+  <h3>住院期间主要检验及特殊检查结果</h3>
+  <ul class="data-list">
+    <li>
+      <app-report-detail [info]="info"></app-report-detail>
+    </li>
+  </ul>
+  <h3>影像报告</h3>
+  <ul class="data-list">
+    <li *ngFor="let obj of info.recordImagingReportList">
+      <ul class="data-list">
+        <li *ngFor="let item of imageList">
+          <h4 class="inline">{{item.title}}：</h4>{{obj[item.key]}}
+        </li>
+      </ul>
+    </li>
+  </ul>
+  <ul class="data-list">
+    <li *ngFor="let item of extraList">
+      <h4 class="inline">{{item.title}}：</h4>{{info[item.key]}}
+    </li>
+  </ul>
+  <ul class="data-list">
+    <app-medical-detail [info]="info"></app-medical-detail>
+  </ul>
+  <ul class="data-list">
+    <li *ngFor="let item of doctorList">
+      <h4 class="inline">{{item.title}}：</h4>{{info[item.key]}}
+    </li>
+  </ul>
+</div>

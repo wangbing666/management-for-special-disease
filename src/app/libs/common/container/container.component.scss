@@ -1,0 +1,49 @@
+@import '../../theme/theme';
+
+.main__content {
+  position: relative;
+  min-width: 600px;
+  padding: 32px 16px;
+}
+
+.content__location {
+  line-height: 24px;
+  overflow: hidden;
+  padding-bottom: 16px;
+  border-bottom: 3px solid $border-color;
+}
+
+.content__addition {
+  position: absolute;
+  right: 16px;
+  top: 20px;
+}
+
+.location__item {
+  display: inline-block;
+  float: left;
+  height: 24px;
+  margin-right: 8px;
+  cursor: pointer;
+}
+
+a.location__item {
+  color: $primary-color;
+  cursor: pointer;
+}
+
+.location__item.span {
+  cursor: default;
+}
+
+.location__item.span:hover {
+  color: inherit;
+}
+
+.location__item:hover {
+  color: $primary-color;
+}
+
+.location__item:focus {
+  outline: none;
+}

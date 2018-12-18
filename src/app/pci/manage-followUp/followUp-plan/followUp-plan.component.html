@@ -1,0 +1,29 @@
+<app-container [config]="containerConfig" *ngIf="containerConfig">
+  <div class="content">
+    <form style="padding: 16px">
+      <mat-form-field floatPlaceholder="always">
+        <input matInput type="text" placeholder="手机号／姓名搜索" name="queryKey" [(ngModel)]="followPlanTable.queryKey">
+      </mat-form-field>
+      <app-search [type]="'1'" [label]="'随访创建时间'" [(value)]="createdDate"></app-search>
+      <button mat-icon-button color="primary" type="button" (click)="getFollowList(0)">
+        <mat-icon>search</mat-icon>
+      </button>
+      <button mat-icon-button color="primary" type="button" (click)="reset()">
+        <mat-icon>autorenew</mat-icon>
+      </button>
+    </form>
+    <div *ngIf="!followPlanTable.lists&&followPlanTable.loading">Loading...</div>
+    <div *ngIf="!followPlanTable.lists&&!followPlanTable.loading&&!!followPlanTable.errorMessage" class="center">
+      {{followPlanTable.errorMessage}}
+    </div>
+    <div *ngIf="followPlanTable.lists">
+      <div class="content__table">
+        <app-lib-table
+          [table]="followPlanTable"
+          (handleEmmit)="gotoHandle($event)"
+          (pageEmitter)="getFollowList($event)"
+        ></app-lib-table>
+      </div>
+    </div>
+  </div>
+</app-container>

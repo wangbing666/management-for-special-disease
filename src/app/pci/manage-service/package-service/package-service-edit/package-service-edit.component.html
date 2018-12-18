@@ -1,0 +1,6 @@
+<app-container [config]="containerConfig" *ngIf="containerConfig">
+  <div class="content">
+    <app-form *ngIf="form" [formDatas]="form" (formValues)="getValues($event)"></app-form>
+    <div *ngIf="errMsg">{{errMsg}}</div>
+  </div>
+</app-container>

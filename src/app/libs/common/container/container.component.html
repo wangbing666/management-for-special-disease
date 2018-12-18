@@ -1,0 +1,13 @@
+<div class="main__content" *ngIf="config">
+  <div class="content__location">
+    <mat-icon *ngIf="!config.ifHome" class="location__item" [routerLink]="config.homeRouter">arrow_back</mat-icon>
+    <mat-icon *ngIf="config.ifHome" class="location__item">home</mat-icon>
+    <span class="location__item">{{config.title}}</span>
+    <span class="location__item span"> - </span>
+    <a class="location__item">{{config.subTitle}}</a>
+  </div>
+  <div class="content__addition">
+    <ng-content select=".addition"></ng-content>
+  </div>
+  <ng-content select=".content"></ng-content>
+</div>

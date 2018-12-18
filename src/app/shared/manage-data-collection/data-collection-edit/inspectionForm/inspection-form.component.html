@@ -1,0 +1,27 @@
+<div class="field">
+  <mat-form-field floatPlaceholder="always" style="width: 100%">
+    <mat-select placeholder="检查名称" name="itemId" [(ngModel)]="info.itemId"
+                (selectionChange)="saveAsDraft()" required [disabled]="!!data.itemId">
+      <mat-option *ngFor="let item of inspectionType" [value]="item.id">
+        {{item.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <app-search [type]="'0'" [label]="'检查时间'" [(value)]="examinationItemCheckDate"></app-search>
+</div>
+<div *ngIf="selectedType&&this.info&&this.info.list">
+  <div class="grid-container clear">
+    <div class="row">
+      <div class="col-l-3" style="text-align: center;">检查指标</div>
+      <div class="col-l-2" style="text-align: center;">下限值</div>
+      <div class="col-l-2" style="text-align: center;">上限值</div>
+      <!--<div class="col-l-2" style="text-align: center;">参考值</div>-->
+      <!--<div class="col-l-2" style="text-align: center;">单位</div>-->
+      <div class="col-l-3" style="text-align: center;">数值</div>
+      <div class="col-l-2" style="text-align: center;">标准</div>
+    </div>
+  </div>
+  <div *ngFor="let item of this.info.list">
+    <app-inspection-item-form [data]="item" [examinationItemCheckDate]="examinationItemCheckDate" (dataChange)="saveAsDraft()"></app-inspection-item-form>
+  </div>
+</div>

@@ -1,0 +1,54 @@
+<div class="table-container">
+  <table class="table" *ngIf="table">
+    <thead>
+    <tr>
+      <th *ngFor="let title of table.titles">{{title.name}}</th>
+    </tr>
+    </thead>
+    <tbody *ngIf="table.lists">
+    <tr *ngFor="let list of table.lists; let i = index">
+      <td *ngFor="let title of table.titles" [ngSwitch]="title.controlType" data-title="{{title.name}}">
+        <div *ngSwitchCase="controlType.index" [style.minWidth.px]="title.minwidth" [style.maxWidth.px]="title.maxwidth"
+             [ngStyle]="{'text-align': title.align}"
+             class="table__content">
+          <span>{{i + 1 + table.currentPage * table.size}}</span>
+        </div>
+        <div *ngSwitchCase="controlType.text" [style.minWidth.px]="title.minwidth" [style.maxWidth.px]="title.maxwidth"
+             class="table__content">
+          <span>{{list[title.key] == 0 ? list[title.key] : list[title.key] || ''}}</span>
+        </div>
+        <div *ngSwitchCase="controlType.date" [style.minWidth.px]="title.minwidth" [style.maxWidth.px]="title.maxwidth"
+             class="table__content">
+          <span>{{list[title.key] | date:"yyyy/MM/dd HH:mm"}}</span>
+        </div>
+        <div *ngSwitchCase="controlType.image" class="table__image">
+          <img src="{{list[title.key]}}">
+        </div>
+        <div *ngSwitchCase="controlType.button" [style.minWidth.px]="title.minwidth" class="table__content">
+          <span (click)="gotoHandle(title.key,list)" class="table__option">{{title.option || title.name}}</span>
+        </div>
+        <div *ngSwitchCase="controlType.textButton" [style.minWidth.px]="title.minwidth" class="table__content">
+          <span>{{list[title.key] == 0 ? list[title.key] : list[title.key] || ''}}</span>
+          <span (click)="gotoHandle(title.key,list)" class="table__option">{{title.option || title.name}}</span>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<div class="page__items" *ngIf="table.ifPage&&table.totalPage">
+  <a class="item icon" (click)="getFirstPage()">
+    <mat-icon>first_page</mat-icon>
+  </a>
+  <a class="item icon" (click)="getPrePage()">
+    <mat-icon>chevron_left</mat-icon>
+  </a>
+  <a class="item" *ngFor="let page of pageList" [class.active]="page-1==table.currentPage"
+     (click)="getCurrentPage(page)">{{page}}</a>
+  <a class="item icon" (click)="getNextPage()">
+    <mat-icon>chevron_right</mat-icon>
+  </a>
+  <a class="item icon" (click)="getLastPage()">
+    <mat-icon>last_page</mat-icon>
+  </a>
+</div>

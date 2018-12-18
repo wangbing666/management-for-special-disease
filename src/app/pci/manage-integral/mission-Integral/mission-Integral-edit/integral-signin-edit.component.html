@@ -1,0 +1,35 @@
+    <h1 mat-dialog-title>签到编辑</h1>
+    <div mat-dialog-content style="width: 700px;">
+      <div *ngIf="option">
+        <form *ngIf="form" [formGroup]="form" (ngSubmit)="dialogRef.close(form.value)">
+          <div class="integral">
+            <span>积分</span>
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="其他每天"  formControlName="other" [(ngModel)]="config.other.value" type="number">
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="第三天"  formControlName="third" [(ngModel)]="config.third.value" type="number">
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="第七天"  formControlName="seventh" [(ngModel)]="config.seventh.value" type="number">
+            </mat-form-field>
+          </div>
+          <div class="integral">
+            <mat-select [placeholder]="config.status.label" formControlName="status" [(ngModel)]="config.status.value" style="width: 100%;">
+              <mat-option *ngFor="let opt of config.status.options" [value]="opt.id">
+                {{ opt.name }}
+              </mat-option>
+            </mat-select>
+          </div>
+          <div class="integral">
+            <input  type="hidden" formControlName="tag" [(ngModel)]="config.tag.value">
+          </div>
+          <div class="integral">
+            <button mat-raised-button color="primary" [disabled]="!form.valid">保存</button>
+            <button mat-raised-button type="reset">重置</button>
+          </div>
+        </form>
+        <div *ngIf="errMsg">{{errMsg}}</div>
+      </div>
+    </div>
+

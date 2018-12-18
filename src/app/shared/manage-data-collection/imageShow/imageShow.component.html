@@ -1,0 +1,26 @@
+<div class="image-container">
+  <div id="imageShow" class="image-content" *ngIf="imgList" [ngStyle]="{'transform': getImageSize()}">
+    <img [ngStyle]="{'width': getImageWidth()}" src="{{imgList[index-1].imgUrl}}">
+  </div>
+  <div style="text-align: center;padding-bottom: 10px">
+    <button mat-icon-button (click)="previous()" [disabled]="index===1">
+      <mat-icon aria-label="上一张">navigate_before</mat-icon>
+    </button>
+    <button mat-icon-button disabled>{{index}}/{{imgList.length}}</button>
+    <button mat-icon-button (click)="next()" [disabled]="index===imgList.length">
+      <mat-icon aria-label="下一张">navigate_next</mat-icon>
+    </button>
+    <button mat-icon-button (click)="enlarge()">
+      <mat-icon aria-label="放大">add_circle_outline</mat-icon>
+    </button>
+    <button mat-icon-button (click)="reduce()">
+      <mat-icon aria-label="缩小">remove_circle_outline</mat-icon>
+    </button>
+    <button mat-icon-button (click)="rotate()">
+      <mat-icon aria-label="旋转">rotate_right</mat-icon>
+    </button>
+    <button mat-icon-button (click)="reset()">
+      <mat-icon aria-label="恢复">refresh</mat-icon>
+    </button>
+  </div>
+</div>

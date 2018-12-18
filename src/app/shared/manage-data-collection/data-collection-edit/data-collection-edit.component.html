@@ -1,0 +1,89 @@
+<app-container [config]="containerConfig" *ngIf="containerConfig">
+  <div class="content">
+    <div *ngIf="errorMessage" class="error-message">
+      <p>{{errorMessage}}</p>
+      <button mat-button type="button" (click)="getDataCollection()">点击刷新</button>
+    </div>
+    <div class="grid-container clear"
+         *ngIf="userInfo&&userInfo.status!==3&&userInfo.recordHistoryDtoList">
+      <div class="row">
+        <div class="col-3">
+          <app-userinfo [user]="userInfo" [type]="true" (onChangehospital)="onChangehospital($event)"></app-userinfo>
+          <div id="dataShow" class="show-container">
+            <div *ngFor="let obj of userInfo.recordHistoryDtoList;let i=index" class="show-content">
+              <h4 class="header-data">病史资料{{i+1}}</h4>
+              <ul class="data-list">
+                <li #edit hidden="true">
+                  <app-edit-form *ngIf="!edit.hidden" [id]="userInfo.id"
+                                 [hospitalName] = "hospitalName"
+                                 [editFormData]="setUpdateData(obj,obj.recordHistoryType)"
+                                 [images]="userInfo.medicalRecordPhotoList" (saveSuccess)="saveSuccess($event)"
+                                 (cancelEmmiter)="tocancel(edit)" index="{{obj.id}}edit"></app-edit-form>
+                </li>
+                <li *ngFor="let user of commonList">
+                  <h4 class="inline">{{user.title}}:</h4> {{obj[user.key]}}
+                </li>
+                <li #f hidden="true">
+                  <div *ngIf="obj.recordHistoryType==1">
+                    <app-report-detail [info]="obj.object"></app-report-detail>
+                  </div>
+                  <div *ngIf="obj.recordHistoryType==2">
+                    <app-brief-detail [info]="obj.object"></app-brief-detail>
+                  </div>
+                  <div *ngIf="obj.recordHistoryType==4">
+                    <app-medical-detail [info]="obj.object"></app-medical-detail>
+                  </div>
+                  <div *ngIf="obj.recordHistoryType==5">
+                    <app-record-detail [info]="obj.object"></app-record-detail>
+                  </div>
+                  <div *ngIf="obj.recordHistoryType==6">
+                    <app-other-detail [info]="obj.object"></app-other-detail>
+                  </div>
+                  <div *ngFor="let img of obj.medicalRecordPhotoList" class="show-image">
+                    <img src="{{img.imgUrl}}">
+                  </div>
+                </li>
+              </ul>
+              <div class="show-button">
+                <button mat-raised-button type="button" (click)="toedit(edit)">编辑资料</button>
+                <button mat-raised-button type="button" (click)="todel(obj)">删除资料</button>
+                <button mat-raised-button type="button" *ngIf="f.hidden" (click)="f.hidden=!f.hidden">展开详情</button>
+                <button mat-raised-button type="button" *ngIf="!f.hidden" (click)="f.hidden=!f.hidden">收起详情</button>
+              </div>
+            </div>
+          </div>
+          <div>
+            <h3 class="header-data header-margin center">新增病史资料</h3>
+            <div *ngFor="let editForm of editFormList;let i=index" class="form-list">
+              <div class="right-button">
+                <button mat-raised-button type="button" (click)="delForm(i)">
+                  删除病史资料{{i+1}}<i class="remove icon"></i></button>
+              </div>
+              <h3 class="header-data header-margin">新增病史资料{{i+1}}</h3>
+              <app-edit-form [id]="userInfo.id" [hospitalName] = "hospitalName" [editFormData]="editForm" (dataChange)="dataChange($event,i)"
+                             [images]="userInfo.medicalRecordPhotoList" (saveSuccess)="saveSuccess($event)"
+                             index="{{i}}add"></app-edit-form>
+              <hr/>
+            </div>
+            <div class="button-padding">
+              <button mat-raised-button type="button" (click)="newForm()">+添加一项资料</button>
+            </div>
+          </div>
+          <div class="button-padding" *ngIf="userInfo.status!==1">
+            <button mat-raised-button type="button" color="primary" (click)="toPass()">提交审核</button>
+            <button mat-raised-button type="button" color="primary" (click)="toUpdateImg()">修改图片</button>
+          </div>
+          <div class="button-padding" *ngIf="userInfo.status==1">
+            <button mat-raised-button (click)="toAudit()">提交复审</button>
+            <button mat-raised-button (click)="toUnpass()">审核不通过</button>
+            <button mat-raised-button (click)="toOnline()">通过上线</button>
+          </div>
+          <div *ngIf="userInfo.failedReason">审核失败理由：{{userInfo.failedReason}}</div>
+        </div>
+        <div class="col-3" *ngIf="userInfo&&userInfo.medicalRecordPhotoList">
+          <app-image-show [imgList]="userInfo.medicalRecordPhotoList"></app-image-show>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-container>
